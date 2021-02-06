@@ -1,0 +1,352 @@
+{
+  "name": "Pizza Heat",
+  "slogan": "The best pizza in town..",
+  "type": "SIMPLE",
+  "about": "© 2020 - Pizza Heat Bvba - All rights reserved.",
+  "bgImage": {
+    "emediaId": "6ac04a38-d3fb-476c-b721-8f9fa174407f",
+    "type": "photo",
+    "url": "http://www.pizza-heat.be/wp-content/uploads/2017/03/PH-slider-large_1170x378-base.jpg"
+  },
+  "address": {
+    "eaddressId": "47e35e7b-b5e5-4e6f-b800-5635b8f48c01",
+    "postcode": "9240",
+    "municipality": "Zele",
+    "city": "Ghent"
+  },
+  "contact": {
+    "econtactId": "ef675f45-d4d8-43df-a926-e28e3e93ff23",
+    "phone": "0032467711709",
+    "email": "yilmaz@mail.be",
+    "firstName": "Yilmaz",
+    "lastName": "Mustafa"
+  },
+  "products": [
+    {
+      "eproductId": "1bf3f8ce-3262-4b48-afb9-0e57c5927b42",
+      "name": "Pizza Margherita",
+      "menuOrder": 1,
+      "categories": [
+        "pizza",
+        "deals"
+      ],
+      "dietary": "vegan",
+      "cuisine": "italian",
+      "imageUrl": "https://ww.parliamoitaliano.nl/wp-content/uploads/Pizza-en-pasta_Pizza_Margherita-e1481054381295-713x330.jpg",
+      "price": 12.50
+    }
+  ],
+  "auth": {
+    "authKey": "123456",
+    "secret": "azerty",
+    "siteUrl": "https://www.pizza-heat.be/",
+    "storeUrl": "https://www.takeaway.com/be-en/menu/pizza-heat-zele"
+  },
+  "payments": [
+    {
+      "method": "CASH_ON_DELIVERY",
+      "minOrderAmount": 5
+    },
+    {
+      "method": "CREDIT_CARD_ON_DELIVERY",
+      "minOrderAmount": 5,
+      "expiryDate": "2023-03-11"
+    }
+  ],
+  "deliveries": [
+    {
+      "postcode": "9201",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9202",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9203",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9204",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9205",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9206",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9207",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9208",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9209",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9210",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9211",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9212",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9213",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9214",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9215",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9216",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9217",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9218",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9219",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9220",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9221",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9222",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9223",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9224",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9225",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9226",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9227",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9228",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9229",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9230",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9231",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9232",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9233",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9234",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9235",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9236",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9237",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9238",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9239",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    },
+    {
+      "postcode": "9240",
+      "deliveryDuration": 30,
+      "minOrderPrice": 5,
+      "maxOrderPrice": 1000,
+      "deliveryCost": 0
+    }
+  ],
+  "schedules": [
+    {
+      "openTime": "2021-02-10T09:00:00.000Z",
+      "closeTime": "2021-02-10T21:00:00.000Z"
+    },
+    {
+      "openTime": "2021-02-11T09:00:00.000Z",
+      "closeTime": "2021-02-11T21:00:00.000Z"
+    },
+    {
+      "openTime": "2021-02-12T09:00:00.000Z",
+      "closeTime": "2021-02-12T21:00:00.000Z"
+    }
+  ]
+}

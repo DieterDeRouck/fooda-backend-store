@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class AddressCreate {
 
     private UUID eAddressId;

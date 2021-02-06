@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RestController
-@RequestMapping("api/v1/store")
+@RequestMapping("/")
 public class StoreController {
 
     private final StoreRepository storeRepository;
@@ -49,7 +49,27 @@ public class StoreController {
     // Filters -> storeRepository if input is -> range, or set, or list ... non-unique data .. postcode ..
     // Get -> storeRepository if input is unique or set, list of unique ids.. id, externalId, username, phone
 
-    @GetMapping("get_all_stores")
+    private static final String GET_ALL = "get_all_stores";
+    private static final String SEARCH_BY_STORE_NAME = "search_by_store_name";
+    private static final String SEARCH = "search";
+    private static final String STORE_EXISTS_BY_ID = "store_exists_by_id";
+    private static final String STORE_EXISTS = "store_exists";
+    private static final String SEARCH_BY_ADDRESS = "search_by_address";
+    private static final String FILTER_BY_DELIVERY_COSTS = "filter_by_delivery_costs";
+    private static final String FILTER_BY_DELIVERY_LOCATIONS = "filter_by_delivery_locations";
+    private static final String FILTER_BY_DELIVERY_DURATION = "filter_by_delivery_duration";
+    private static final String SEARCH_BY_PRODUCT_NAME = "search_by_product_name";
+    private static final String SEARCH_BY_CUISINE = "search_by_cuisine";
+    private static final String GET_BY_MENU_ITEMS_PRICE = "get_by_menu_item_price";
+    private static final String SEARCH_BY_DIETARY = "search_by_dietary";
+    private static final String ADD_STORE = "add_store";
+    private static final String ADD_PRODUCT = "add_product";
+    private static final String REMOVE_PRODUCT = "remove_product";
+    private static final String DELETE_STORE = "delete_store";
+    private static final String SEARCH_BY_RANGE = "search_by_range";
+    private static final String GET_PRODUCTS_BY_STORE_ID = "get_all_products_by_store_id";
+
+    @GetMapping(GET_ALL)
     public ResponseEntity getAllStores(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "25") int pageSize) {
 
         Pageable paging = PageRequest.of(pageNo - 1, pageSize);
@@ -64,7 +84,7 @@ public class StoreController {
 
     }
 
-    @GetMapping("search_by_store_name")
+    @GetMapping(SEARCH_BY_STORE_NAME)
     public ResponseEntity searchByStoreName(@RequestParam String name, @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "25") int pageSize) {
 
         final List<StoreEntity> foundStores = storeSearch.searchByStoreName(name, pageNo, pageSize);
@@ -74,7 +94,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
     }
 
-    @GetMapping("get_all_menu_items_by_store_id")
+    @GetMapping(GET_PRODUCTS_BY_STORE_ID)
     public ResponseEntity getAllMenuItemsByStore(@RequestParam UUID id) {
         final boolean storeExists = storeRepository.existsById(id);
 
@@ -86,7 +106,7 @@ public class StoreController {
     }
 
 
-    @GetMapping("search")
+    @GetMapping(SEARCH)
     public ResponseEntity search(@RequestParam Set<String> keywords) {
 
         final List<StoreEntity> foundStores = storeSearch.searchCombined(keywords);
@@ -97,7 +117,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
     }
 
-    @GetMapping("search_by_range")
+    @GetMapping(SEARCH_BY_RANGE)
     public ResponseEntity searchByRange(@RequestParam Set<String> keywords) {
 
         final List<StoreEntity> foundStores = storeSearch.searchCombinedRange(keywords);
@@ -108,7 +128,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
     }
 
-    @GetMapping("store_exists_by_id")
+    @GetMapping(STORE_EXISTS_BY_ID)
     public ResponseEntity storeExistsById(@RequestParam UUID storeId) {
         return storeRepository.existsById(storeId)
                 ? ResponseEntity.status(HttpStatus.FOUND).body(HttpSuccessMessages.STORE_EXISTS)
@@ -116,7 +136,7 @@ public class StoreController {
 
     }
 
-    @PostMapping("store_exists")
+    @PostMapping(STORE_EXISTS)
     public ResponseEntity storeExists(@RequestBody StoreCreate store) {
         Example<StoreEntity> example = Example.of(storeMapper.toEntity(store));
         return storeRepository.exists(example)
@@ -125,7 +145,7 @@ public class StoreController {
     }
 
 
-    @GetMapping("search_by_address")
+    @GetMapping(SEARCH_BY_ADDRESS)
     public ResponseEntity searchByAddress(@RequestParam String postcode, @RequestParam(required = false) String municipality, @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "25") int pageSize) {
 
         List<StoreEntity> stores = storeSearch.searchByAddress(postcode, municipality, pageNo, pageSize);
@@ -138,7 +158,7 @@ public class StoreController {
     }
 
 
-    @GetMapping("filter_by_delivery_costs")
+    @GetMapping(FILTER_BY_DELIVERY_COSTS)
     public ResponseEntity filterByDeliveryCosts(@RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "25") int pageSize) {
 
         final List<StoreEntity> foundStores = storeSearch.filterByDeliveryCosts(minPrice, maxPrice, pageNo, pageSize);
@@ -148,7 +168,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
     }
 
-    @GetMapping("filter_by_delivery_duration")
+    @GetMapping(FILTER_BY_DELIVERY_DURATION)
     public ResponseEntity filterByDeliveryDuration(
             @RequestParam Double minDuration, @RequestParam Double maxDuration,
             @RequestParam(required = false, defaultValue = "1") Integer pageNo, @RequestParam(required = false) Integer pageSize) {
@@ -157,11 +177,9 @@ public class StoreController {
             return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HttpFailureMessages.NO_STORES_FOUND);
-
-
     }
 
-    @GetMapping("filter_by_delivery_locations")
+    @GetMapping(FILTER_BY_DELIVERY_LOCATIONS)
     public ResponseEntity filterByDeliveryLocations(@RequestParam Set<String> postcode, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "25") int pageSize) {
         List<StoreEntity> foundStores = storeSearch.filterByDeliveryLocations(postcode, pageNo, pageSize);
         if (foundStores.isEmpty())
@@ -170,7 +188,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
     }
 
-    @GetMapping("search_by_menu_item_name")
+    @GetMapping(SEARCH_BY_PRODUCT_NAME)
     public ResponseEntity searchByMenuItemsName(@RequestParam String menuItem, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "25") Integer pageSize) {
         List<StoreEntity> foundStores = storeSearch.searchByMenuItemsName(menuItem, pageNo, pageSize);
         if (foundStores.isEmpty())
@@ -179,17 +197,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
     }
 
-  /*  @GetMapping("search_by_category")
-    public ResponseEntity searchByMenuItemCategory(@RequestParam Set<String> categories) {
-        List<Store> foundStores = indexRepository.searchByCategories(categories);
-        if (foundStores.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(StoreHttpFailureMessages.NO_STORES_FOUND);
-
-        return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
-    }*/
-
-
-    @GetMapping("search_by_cuisine")
+    @GetMapping(SEARCH_BY_CUISINE)
     public ResponseEntity searchByCuisine(@RequestParam String cuisine, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "25") Integer pageSize) {
         List<StoreEntity> foundStores = storeSearch.searchByCuisine(cuisine, pageNo, pageSize);
         if (foundStores.isEmpty())
@@ -198,7 +206,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
     }
 
-    @GetMapping("get_by_menu_item_price")
+    @GetMapping(GET_BY_MENU_ITEMS_PRICE)
     public ResponseEntity getByMenuItemsPrice(@RequestParam BigDecimal maxPrice) {
         List<ProductEntity> foundProducts = menuItemRepository.findByProductPrice(maxPrice);
         if (foundProducts.isEmpty())
@@ -207,17 +215,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(foundProducts);
     }
 
-   /* @GetMapping("searchByMenuItemsPrice")
-    public ResponseEntity searchByMenuItemsPrice(@RequestParam BigDecimal maxPrice, @RequestParam(defaultValue = "1" ) Integer pageNo, @RequestParam(defaultValue = "25")Integer pageSize) {
-        List<Store> foundStores = indexRepository.filterByMenuItemsPrice(maxPrice,  pageNo, pageSize);
-        if (foundStores.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(StoreHttpFailureMessages.NO_STORES_FOUND);
-
-        return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
-    }*/
-
-
-    @GetMapping("search_by_dietary")
+    @GetMapping(SEARCH_BY_DIETARY)
     public ResponseEntity searchByDietary(@RequestParam String dietary, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "25") Integer pageSize) {
         List<StoreEntity> foundStores = storeSearch.searchByDietary(dietary, pageNo, pageSize);
         if (foundStores.isEmpty())
@@ -226,17 +224,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
     }
 
-  /*  @GetMapping("filterByMinimumOrderPrice")
-    public ResponseEntity filterByMinimumOrderPrice(@RequestParam BigDecimal minOrderPrice, @RequestParam(defaultValue = "1" ) Integer pageNo, @RequestParam(defaultValue = "25")Integer pageSize){
-        List<Store> foundStores = indexRepository.filterByMinimumOrderPrice(minOrderPrice,  pageNo, pageSize);
-        if (foundStores.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(StoreHttpFailureMessages.NO_STORES_FOUND);
-
-        return ResponseEntity.status(HttpStatus.FOUND).body(foundStores);
-    }*/
-
-
-    @PostMapping("add_store")
+    @PostMapping(ADD_STORE)
     public ResponseEntity addStore(@RequestBody @Valid StoreCreate storeCreate) {
 
         if (storeRepository.existByUniqueFields(storeCreate.getName(), storeCreate.getAddress().getEAddressId(), storeCreate.getAuth().getAuthKey())) {
@@ -265,7 +253,7 @@ public class StoreController {
     }
 
 
-    @PatchMapping("add_menu_item")
+    @PatchMapping(ADD_PRODUCT)
     public ResponseEntity addMenuItem(@RequestParam UUID storeId, @RequestBody ProductCreate menuItem) {
         final Optional<StoreEntity> store = storeRepository.findById(storeId);
 
@@ -285,7 +273,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HttpSuccessMessages.MENU_ITEM_ADDED_IN_STORE);
     }
 
-    @DeleteMapping("remove_menu_item")
+    @DeleteMapping(REMOVE_PRODUCT)
     public ResponseEntity removeMenuItem(@RequestParam UUID menuItemId) {
         menuItemRepository.deleteById(menuItemId);
 
@@ -295,7 +283,7 @@ public class StoreController {
                 : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(HttpFailureMessages.MENU_ITEM_CAN_NOT_BE_DELETED);
     }
 
-    @DeleteMapping("delete_store")
+    @DeleteMapping(DELETE_STORE)
     public ResponseEntity deleteStoreById(@RequestParam UUID id) {
         Optional<StoreEntity> foundStore = storeRepository.findById(id);
 
@@ -303,7 +291,6 @@ public class StoreController {
 
         storeBeingDeleted.setIsActive(Boolean.FALSE);
         storeRepository.save(storeBeingDeleted);
-
 
         return storeRepository.existByIsActive(id, false)
                 ? ResponseEntity.status(HttpStatus.FOUND).body(HttpSuccessMessages.STORE_DELETED)

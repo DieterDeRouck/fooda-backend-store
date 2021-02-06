@@ -182,7 +182,7 @@ public class StoreEntity {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @IndexedEmbedded
-    private List<ScheduleEntity> schedules;
+    private List<ScheduleEntity> schedules = new ArrayList<>();
 
 
     public void setSchedules(List<ScheduleEntity> workingHours) {

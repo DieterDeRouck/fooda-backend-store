@@ -1,5 +1,6 @@
 package be.fooda.backend.store.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.search.annotations.ContainedIn;
@@ -35,7 +36,6 @@ public class AuthEntity {
     @EqualsAndHashCode.Include
     private String secret;
 
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @FutureOrPresent
     @Field
     @SortableField

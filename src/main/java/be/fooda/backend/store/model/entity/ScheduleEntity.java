@@ -1,5 +1,6 @@
 package be.fooda.backend.store.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.search.annotations.ContainedIn;
@@ -7,9 +8,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.SortableField;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -25,12 +24,10 @@ public class ScheduleEntity {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @Field
     @SortableField
     private LocalDateTime openTime;
 
-    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @Field
     @SortableField
     private LocalDateTime closeTime;

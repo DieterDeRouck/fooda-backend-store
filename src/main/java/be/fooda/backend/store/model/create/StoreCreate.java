@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class StoreCreate {
 
     private String name;

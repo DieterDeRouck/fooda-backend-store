@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthUpdate {
 
     private String authKey;

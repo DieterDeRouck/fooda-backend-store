@@ -9,7 +9,6 @@ import java.time.Duration;
 
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class DeliveryUpdate {
 
     private String postcode;
