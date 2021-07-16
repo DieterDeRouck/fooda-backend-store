@@ -1,44 +1,37 @@
 package be.fooda.backend.store.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.search.annotations.ContainedIn;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.SortableField;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.data.jpa.domain.AbstractAuditable;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString(onlyExplicitlyIncluded = true)
+@NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class AuthEntity {
+public class AuthEntity extends AbstractAuditable<String, UUID> {
 
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID id;
-
-    @Field
     @EqualsAndHashCode.Include
     @NotNull
     private String authKey;
 
-    @Field
     @EqualsAndHashCode.Include
     private String secret;
 
     @FutureOrPresent
-    @Field
-    @SortableField
     private LocalDate expiryDate;
 
     @URL(protocol = "https")
@@ -50,6 +43,5 @@ public class AuthEntity {
     @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
-    @ContainedIn
     private StoreEntity store;
 }

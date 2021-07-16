@@ -3,49 +3,43 @@ package be.fooda.backend.store.model.entity;
 import be.fooda.backend.store.service.validation.Name;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.search.annotations.ContainedIn;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.SortableField;
+import lombok.experimental.FieldDefaults;
+import org.springframework.data.jpa.domain.AbstractAuditable;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import java.util.UUID;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString(onlyExplicitlyIncluded = true)
+@NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class ContactEntity {
+public class ContactEntity extends AbstractAuditable<String, UUID> {
 
     @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID contactId;
 
-    @Field
-    @EqualsAndHashCode.Include
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID eContactId;
-
-    @Field
-    @SortableField
+    @ToString.Include
     private String phone;
 
-    @Field
+    @ToString.Include
     private String email;
 
-    @Field
+    @ToString.Include
     @Name
     private String firstName;
 
-    @Field
+    @ToString.Include
     @Name
     private String lastName;
 
     @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
-    @ContainedIn
     private StoreEntity store;
 }

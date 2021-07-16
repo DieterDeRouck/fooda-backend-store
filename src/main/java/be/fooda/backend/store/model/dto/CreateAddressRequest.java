@@ -1,11 +1,8 @@
-package be.fooda.backend.store.model.entity;
+package be.fooda.backend.store.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.jpa.domain.AbstractAuditable;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 @Getter
@@ -14,8 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
-public class AddressEntity extends AbstractAuditable<String, UUID> {
+public class CreateAddressRequest {
 
     @EqualsAndHashCode.Include
     private UUID addressId;
@@ -29,8 +25,4 @@ public class AddressEntity extends AbstractAuditable<String, UUID> {
     @ToString.Include
     private String city;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonIgnore
-    @ToString.Exclude
-    private StoreEntity store;
 }
