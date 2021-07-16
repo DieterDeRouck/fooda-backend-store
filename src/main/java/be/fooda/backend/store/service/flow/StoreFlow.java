@@ -33,24 +33,24 @@ public class StoreFlow {
         5- Database transactions will be processed here.
      */
 
-    // CREATE_PRODUCT(REQUEST)
+    // CREATE_STORE(REQUEST)
     public void createStore(CreateStoreRequest request) throws
             NullPointerException, ResourceNotFoundException {
 
         // IF(NULL)
         if (Objects.isNull(request)) {
             // THROW_EXCEPTION
-            throw new NullPointerException(HttpFailureMassages.FAILED_TO_CREATE_PRODUCT.getDescription());
+            throw new NullPointerException(HttpFailureMassages.FAILED_TO_CREATE_STORE.getDescription());
         }
 
-        //  IF(PRODUCT_EXISTS)
+        //  IF(STORE_EXISTS)
         boolean exists = productRepository.existsByNameAndStore_StoreId(
                 request.getName(), request.getStore().getStoreId()
         );
 
         if (exists) {
             // THROW_EXCEPTION
-            throw new ResourceNotFoundException(HttpFailureMassages.PRODUCT_ALREADY_EXIST.getDescription());
+            throw new ResourceNotFoundException(HttpFailureMassages.STORE_ALREADY_EXIST.getDescription());
         }
 
         // MAP_DTO_TO_ENTITY
@@ -61,21 +61,21 @@ public class StoreFlow {
 
     }
 
-    // UPDATE_PRODUCT(UNIQUE_IDENTIFIER, REQUEST)
+    // UPDATE_STORE(UNIQUE_IDENTIFIER, REQUEST)
     public void updateStore(UUID id, UpdateStoreRequest request) {
 
         // IF(NULL)
         if (Objects.isNull(request)) {
             // THROW_EXCEPTION
-            throw new NullPointerException(HttpFailureMassages.FAILED_TO_UPDATE_PRODUCT.getDescription());
+            throw new NullPointerException(HttpFailureMassages.FAILED_TO_UPDATE_STORE.getDescription());
         }
 
         Optional<StoreEntity> oEntity = productRepository.findById(id);
 
-        //  IF(PRODUCT_NOT_EXIST)
+        //  IF(STORE_NOT_EXIST)
         if (oEntity.isEmpty()) {
             // THROW_EXCEPTION
-            throw new ResourceNotFoundException(HttpFailureMassages.PRODUCT_NOT_FOUND.getDescription());
+            throw new ResourceNotFoundException(HttpFailureMassages.STORE_NOT_FOUND.getDescription());
         }
 
         // MAP_FROM_REQUEST_TO_ENTITY
