@@ -1,4 +1,4 @@
-package be.fooda.backend.store.model.entity;
+package be.fooda.backend.store.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -20,8 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
-public class PaymentEntity extends AbstractAuditable<String, UUID> {
+public class CreatePaymentRequest {
 
     @ToString.Include
     private String method;
@@ -30,11 +29,6 @@ public class PaymentEntity extends AbstractAuditable<String, UUID> {
     private BigDecimal minOrderAmount;
 
     @ToString.Include
-    @FutureOrPresent
     private LocalDate expiryDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonIgnore
-    @ToString.Exclude
-    private StoreEntity store;
 }

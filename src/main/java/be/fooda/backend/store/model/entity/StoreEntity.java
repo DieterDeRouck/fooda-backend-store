@@ -2,74 +2,42 @@ package be.fooda.backend.store.model.entity;
 
 
 import be.fooda.backend.store.service.validation.Name;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
+import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString(onlyExplicitlyIncluded = true)
+@NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Indexed
-public class StoreEntity {
+public class StoreEntity extends AbstractAuditable<String, UUID> {
 
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID id;
+    private String eTrackingId;
 
-    @Field
     @Name
     private String name;
 
-    @Field
     @Lob
     private String slogan;
 
-    @Field
     private String type;
 
-    @Column(columnDefinition = "BINARY(16)")
     private UUID parentId;
 
-    @Field
     @Lob
     private String about;
 
     private Boolean isActive = Boolean.TRUE;
-
-    private String eTrackingId;
-
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedBy
-    private String lastModifiedBy;
-
-    @Field
-    @CreationTimestamp
-    private LocalDateTime registeredAt;
-
-    @Field
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 
     @OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
     @IndexedEmbedded
