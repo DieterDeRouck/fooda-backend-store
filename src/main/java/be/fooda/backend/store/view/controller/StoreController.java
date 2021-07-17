@@ -3,7 +3,7 @@ package be.fooda.backend.store.view.controller;
 import be.fooda.backend.store.model.dto.CreateStoreRequest;
 import be.fooda.backend.store.model.dto.StoreResponse;
 import be.fooda.backend.store.model.dto.UpdateStoreRequest;
-import be.fooda.backend.store.model.http.HttpSuccessMassages;
+import be.fooda.backend.store.model.http.HttpSuccessMessages;
 import be.fooda.backend.store.service.flow.StoreFlow;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -54,7 +54,7 @@ public class StoreController {
         // RETURN_SUCCESS
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(HttpSuccessMassages.STORE_CREATED.getDescription());
+                .body(HttpSuccessMessages.STORE_CREATED.getDescription());
     }
 
     // @PutMapping // UPDATE STORE(S)
@@ -67,7 +67,7 @@ public class StoreController {
         // RETURN_SUCCESS
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(HttpSuccessMassages.STORE_UPDATED.getDescription());
+                .body(HttpSuccessMessages.STORE_UPDATED.getDescription());
     }
 
     // DELETE_BY_ID
@@ -77,7 +77,7 @@ public class StoreController {
 
 
         // RETURN_SUCCESS
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(HttpSuccessMassages.STORE_DELETED.getDescription());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(HttpSuccessMessages.STORE_DELETED.getDescription());
     }
 
     // DELETE_BY_ID_PERMANENTLY
@@ -86,7 +86,7 @@ public class StoreController {
 
 
         // RETURN_SUCCESS
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(HttpSuccessMassages.STORE_DELETED.getDescription());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(HttpSuccessMessages.STORE_DELETED.getDescription());
     }
 
     // @PatchMapping // UPDATE STORE(S) BUT NOT ALL THE FIELDS

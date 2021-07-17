@@ -99,4 +99,16 @@ public class StoreFlow {
         // RETURN
         return storeMapper.toResponses(pages.toList());
     }
+
+    //GET_BY_ID(ID)
+    public Optional<StoreResponse> findByID(UUID id) {
+
+        //READ_FROM_DB(ID)
+        Optional<StoreEntity> storeEntity = storeRepository.findById(id);
+
+        //RETURN
+        return storeMapper.toResponse(storeEntity);
+    }
+
+
 }

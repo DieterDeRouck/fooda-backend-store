@@ -8,6 +8,7 @@ import be.fooda.backend.store.model.entity.StoreEntity;
 import org.mapstruct.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Mapper(
@@ -33,7 +34,7 @@ public interface StoreMapper {
 
     UpdateStoreRequest toRequest(StoreEntity source, @MappingTarget UpdateStoreRequest target);
 
-    StoreResponse toResponse(StoreEntity source);
+    Optional<StoreResponse> toResponse(Optional<StoreEntity> source);
 
     Set<StoreResponse> toResponses(Set<StoreEntity> sourceSet);
 
