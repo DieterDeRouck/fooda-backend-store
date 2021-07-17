@@ -105,6 +105,10 @@ public class StoreFlow {
 
         //READ_FROM_DB(ID)
         Optional<StoreEntity> storeEntity = storeRepository.findById(id);
+        if (!(storeEntity.isPresent())){
+            // THROW_EXCEPTION
+            throw new NullPointerException(HttpFailureMessages.STORE_NOT_FOUND.getDescription());
+        }
 
         //RETURN
         return storeMapper.toResponse(storeEntity);
