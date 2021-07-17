@@ -3,7 +3,9 @@ package be.fooda.backend.store.service.flow;
 import be.fooda.backend.store.dao.StoreRepository;
 import be.fooda.backend.store.model.dto.CreateStoreRequest;
 import be.fooda.backend.store.model.dto.StoreResponse;
+import be.fooda.backend.store.model.dto.UpdateStoreRequest;
 import be.fooda.backend.store.model.entity.StoreEntity;
+import be.fooda.backend.store.model.http.HttpFailureMessages;
 import be.fooda.backend.store.service.exception.ResourceNotFoundException;
 import be.fooda.backend.store.service.mapper.StoreMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +23,8 @@ import java.util.UUID;
 @Service
 public class StoreFlow {
 
-    private final StoreRepository productRepository;
-    private final StoreMapper productMapper;
+    private final StoreRepository storeRepository;
+    private final StoreMapper storeMapper;
 
     /*
         Responsibilities of this class:
@@ -40,24 +42,24 @@ public class StoreFlow {
         // IF(NULL)
         if (Objects.isNull(request)) {
             // THROW_EXCEPTION
-            throw new NullPointerException(HttpFailureMassages.FAILED_TO_CREATE_STORE.getDescription());
+            throw new NullPointerException(HttpFailureMessages.FAILED_TO_CREATE_STORE.getDescription());
         }
 
         //  IF(STORE_EXISTS)
-        boolean exists = productRepository.existsByNameAndStore_StoreId(
-                request.getName(), request.getStore().getStoreId()
+        boolean exists = storeRepository.existsByNameAndAddress_AddressId(
+                request.getName(), request.getAddress().getAddressId()
         );
 
         if (exists) {
             // THROW_EXCEPTION
-            throw new ResourceNotFoundException(HttpFailureMassages.STORE_ALREADY_EXIST.getDescription());
+            throw new ResourceNotFoundException(HttpFailureMessages.STORE_ALREADY_EXIST.getDescription());
         }
 
         // MAP_DTO_TO_ENTITY
-        StoreEntity entity = productMapper.toEntity(request);
+        StoreEntity entity = storeMapper.toEntity(request);
 
         // SAVE_TO_DB(ENTITY)
-        productRepository.save(entity);
+        storeRepository.save(entity);
 
     }
 
@@ -67,23 +69,23 @@ public class StoreFlow {
         // IF(NULL)
         if (Objects.isNull(request)) {
             // THROW_EXCEPTION
-            throw new NullPointerException(HttpFailureMassages.FAILED_TO_UPDATE_STORE.getDescription());
+            throw new NullPointerException(HttpFailureMessages.FAILED_TO_UPDATE_STORE.getDescription());
         }
 
-        Optional<StoreEntity> oEntity = productRepository.findById(id);
+        Optional<StoreEntity> oEntity = storeRepository.findById(id);
 
         //  IF(STORE_NOT_EXIST)
         if (oEntity.isEmpty()) {
             // THROW_EXCEPTION
-            throw new ResourceNotFoundException(HttpFailureMassages.STORE_NOT_FOUND.getDescription());
+            throw new ResourceNotFoundException(HttpFailureMessages.STORE_NOT_FOUND.getDescription());
         }
 
         // MAP_FROM_REQUEST_TO_ENTITY
         StoreEntity entity = oEntity.get();
-        StoreEntity entityToUpdate = productMapper.toEntity(request, entity);
+        StoreEntity entityToUpdate = storeMapper.toEntity(request, entity);
 
         // UPDATE_FROM_DB
-        productRepository.save(entityToUpdate);
+        storeRepository.save(entityToUpdate);
 
     }
 
@@ -92,9 +94,9 @@ public class StoreFlow {
 
         // READ_FROM_DB(PAGE_NO, PAGE_SIZE)
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-        Page<StoreEntity> pages = productRepository.findAll(pageable);
+        Page<StoreEntity> pages = storeRepository.findAll(pageable);
 
         // RETURN
-        return productMapper.toResponses(pages.toList());
+        return storeMapper.toResponses(pages.toList());
     }
 }
