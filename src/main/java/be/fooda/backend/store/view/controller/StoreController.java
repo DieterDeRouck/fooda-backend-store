@@ -113,8 +113,11 @@ public class StoreController {
     @GetMapping(GET_BY_ID)
     public ResponseEntity<StoreResponse> findStoreById(@RequestParam("storeId") UUID id) {
 
-        // RETURN_SUCCESS
+        // START_SELECT_FLOW
+        final StoreResponse response = storeFlow.findByID(id);
 
+        // RETURN_SUCCESS
+        return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
     // SEARCH(KEYWORDS)

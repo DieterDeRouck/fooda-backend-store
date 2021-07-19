@@ -101,7 +101,7 @@ public class StoreFlow {
     }
 
     //GET_BY_ID(ID)
-    public Optional<StoreResponse> findByID(UUID id) {
+    public StoreResponse findByID(UUID id) {
 
         //READ_FROM_DB(ID)
         Optional<StoreEntity> storeEntity = storeRepository.findById(id);
