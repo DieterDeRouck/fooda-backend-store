@@ -34,7 +34,7 @@ public interface StoreMapper {
 
     UpdateStoreRequest toRequest(StoreEntity source, @MappingTarget UpdateStoreRequest target);
 
-    Optional<StoreResponse> toResponse(Optional<StoreEntity> source);
+    StoreResponse toResponse(StoreEntity source);
 
     Set<StoreResponse> toResponses(Set<StoreEntity> sourceSet);
 

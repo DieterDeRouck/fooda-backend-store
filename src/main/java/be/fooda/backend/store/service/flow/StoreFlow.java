@@ -101,17 +101,17 @@ public class StoreFlow {
     }
 
     //GET_BY_ID(ID)
-    public StoreResponse findByID(UUID id) {
+    public StoreResponse findByID(UUID id) throws ResourceNotFoundException{
 
         //READ_FROM_DB(ID)
         Optional<StoreEntity> storeEntity = storeRepository.findById(id);
-        if (!(storeEntity.isPresent())){
+        if (storeEntity.isEmpty()){
             // THROW_EXCEPTION
             throw new NullPointerException(HttpFailureMessages.STORE_NOT_FOUND.getDescription());
         }
 
         //RETURN
-        return storeMapper.toResponse(storeEntity);
+        return storeMapper.toResponse(storeEntity.get());
     }
 
 
