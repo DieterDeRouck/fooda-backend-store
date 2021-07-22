@@ -1,0 +1,49 @@
+{
+  "eTrackingId": String,
+  "name": String,
+  "slogan": String,
+  "type": String,
+  "parentId": UUID,
+  "about": String,
+  "isActive": Boolean,
+  "bgImage": {
+    "mediaId": UUID,
+    "type": String,
+    "url": String,
+    "store": StoreEntity
+  },
+  "address": {
+    "addressId": UUID,
+    "postcode": String,
+    "municipality": String,
+    "city": String,
+    "store": StoreEntity
+  },
+  "contact": {
+    "contactId": UUID,
+    "phone": String,
+    "email": String,
+    "firstName": String,
+    "lastName": String,
+    "store": StoreEntity
+  },
+  "products": [
+    List<ProductEntity>
+  ],
+  "auth": {
+    "authKey": String,
+    "secret": String,
+    "siteUrl": String,
+    "storeUrl": String,
+    "store": StoreEntity
+  },
+  "payments": [
+    List<PaymentEntity>
+  ],
+  "deliveries": [
+    List<DeliveryEntity>
+  ],
+  "schedules": [
+    List<ScheduleEntity>
+  ]
+}

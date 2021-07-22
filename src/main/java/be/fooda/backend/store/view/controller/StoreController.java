@@ -120,6 +120,8 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
+/* //temporarily in comments to allow compiling
+
     // SEARCH(KEYWORDS)
     @GetMapping(GET_SEARCH)
     public ResponseEntity<List<StoreResponse>> search(@RequestParam Map<String, String> keywords) {
@@ -133,6 +135,7 @@ public class StoreController {
 
 
         // RETURN_SUCCESS
+
     }
 
     // @GetMapping // EXISTS_BY_UNIQUE_FIELDS
@@ -140,4 +143,6 @@ public class StoreController {
         // RETURN_SUCCESS
     }
 
+
+ */
 }
