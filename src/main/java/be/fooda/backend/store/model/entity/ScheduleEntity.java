@@ -12,13 +12,13 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = {"scheduleId"})
 @Entity
 public class ScheduleEntity {
 
     @Id
     @GeneratedValue
-    UUID id;
+    UUID scheduleId;
 
     LocalDateTime opens;
 

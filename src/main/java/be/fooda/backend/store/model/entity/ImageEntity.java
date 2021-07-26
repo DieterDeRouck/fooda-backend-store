@@ -6,37 +6,29 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"mediaId"})
 @Entity
-public class ImageEntity extends AbstractAuditable<String, UUID> {
+public class ImageEntity {
 
-    @EqualsAndHashCode.Include
-    private UUID mediaId;
+    @Id
+    @GeneratedValue
+    UUID mediaId;
 
-    @ToString.Include
-    private String type;
+    String type;
 
     @NotNull(message = "Image URL is required.")
-    @ToString.Include
     @URL
-    private String url;
+    String url;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     @ToString.Exclude
-    private StoreEntity store;
-
-
+    StoreEntity store;
 }

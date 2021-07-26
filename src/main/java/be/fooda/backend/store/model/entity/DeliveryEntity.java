@@ -10,35 +10,32 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"deliveryId"})
 @Entity
-public class DeliveryEntity extends AbstractAuditable<String, UUID> {
+public class DeliveryEntity {
 
-    @ToString.Include
-    private String postcode;
+    @Id
+    @GeneratedValue
+    UUID deliveryId;
 
-    @ToString.Include
-    private Duration deliveryDuration;
+    String postcode;
 
-    @ToString.Include
+    Duration deliveryDuration;
+
     @Column(columnDefinition = "DECIMAL(8,2)")
-    private BigDecimal minOrderPrice;
+    BigDecimal minOrderPrice;
 
-    @ToString.Include
     @Column(columnDefinition = "DECIMAL(8,2)")
-    private BigDecimal maxOrderPrice;
+    BigDecimal maxOrderPrice;
 
-    @ToString.Include
     @Column(columnDefinition = "DECIMAL(8,2)")
-    private BigDecimal deliveryCost;
+    BigDecimal deliveryCost;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     @ToString.Exclude
-    private StoreEntity store;
+    StoreEntity store;
 }

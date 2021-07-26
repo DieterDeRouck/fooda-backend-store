@@ -5,36 +5,32 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"paymentId"})
 @Entity
-public class PaymentEntity extends AbstractAuditable<String, UUID> {
+public class PaymentEntity {
 
-    @ToString.Include
-    private String method;
+    @Id
+    @GeneratedValue
+    UUID paymentId;
 
-    @ToString.Include
-    private BigDecimal minOrderAmount;
+    String method;
 
-    @ToString.Include
+    BigDecimal minOrderAmount;
+
     @FutureOrPresent
-    private LocalDate expiryDate;
+    LocalDate expiryDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     @ToString.Exclude
-    private StoreEntity store;
+    StoreEntity store;
 }

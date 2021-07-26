@@ -8,29 +8,25 @@ import org.springframework.data.jpa.domain.AbstractAuditable;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"addressId"})
 @Entity
-public class AddressEntity extends AbstractAuditable<String, UUID> {
+public class AddressEntity {
 
-    @EqualsAndHashCode.Include
-    private UUID addressId;
+    @Id
+    @GeneratedValue
+    UUID addressId;
 
-    @ToString.Include
-    private String postcode;
+    String postcode;
 
-    @ToString.Include
-    private String municipality;
+    String municipality;
 
-    @ToString.Include
-    private String city;
+    String city;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     @ToString.Exclude
-    private StoreEntity store;
+    StoreEntity store;
 }

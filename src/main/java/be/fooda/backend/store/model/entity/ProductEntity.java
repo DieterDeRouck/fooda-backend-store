@@ -13,43 +13,37 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"productId"})
 @Entity
-public class ProductEntity extends AbstractAuditable<String, UUID> {
+public class ProductEntity {
 
-    @EqualsAndHashCode.Include
-    private UUID productId;
+    @Id
+    @GeneratedValue
+    UUID productId;
 
-    @ToString.Include
-    private String name;
+    String name;
 
-    @ToString.Include
-    private Integer menuOrder;
+    Integer menuOrder;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable
-    private Set<String> categories = new HashSet<>();
+    Set<String> categories = new HashSet<>();
 
-    @ToString.Include
-    private String dietary;
+    String dietary;
 
-    @ToString.Include
-    private String cuisine;
+    String cuisine;
 
     @URL
-    private String imageUrl;
+    String imageUrl;
 
-    @ToString.Include
-    private BigDecimal price;
+    BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     @ToString.Exclude
-    private StoreEntity store;
+    StoreEntity store;
 
 }

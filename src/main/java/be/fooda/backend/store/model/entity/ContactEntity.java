@@ -6,40 +6,32 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"contactId"})
 @Entity
-public class ContactEntity extends AbstractAuditable<String, UUID> {
+public class ContactEntity {
 
-    @EqualsAndHashCode.Include
-    private UUID contactId;
+    @Id
+    @GeneratedValue
+    UUID contactId;
 
-    @ToString.Include
-    private String phone;
+    String phone;
 
-    @ToString.Include
-    private String email;
+    String email;
 
-    @ToString.Include
     @Name
-    private String firstName;
+    String firstName;
 
-    @ToString.Include
     @Name
-    private String lastName;
+    String lastName;
 
     @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
-    private StoreEntity store;
+    StoreEntity store;
 }
