@@ -5,21 +5,16 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"mediaId"})
 public class CreateImageRequest {
 
-    private UUID mediaId;
+    UUID mediaId;
 
-    @ToString.Include
-    private String type;
+    String type;
 
-    @ToString.Include
-    private String url;
-
-
+    String url;
 }

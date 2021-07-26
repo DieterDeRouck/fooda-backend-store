@@ -6,33 +6,28 @@ import lombok.experimental.FieldDefaults;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"paymentId"})
 public class PaymentResponse {
 
-    @ToString.Include
+    UUID paymentId;
+
     String method;
 
-    @ToString.Include
     BigDecimal minOrderAmount;
 
-    @ToString.Include
     LocalDate expiryDate;
 
-    @ToString.Include
     String createdBy;
 
-    @ToString.Include
     Date createdDate;
 
-    @ToString.Include
     String lastModifiedBy;
 
-    @ToString.Include
     Date lastModifiedDate;
 }

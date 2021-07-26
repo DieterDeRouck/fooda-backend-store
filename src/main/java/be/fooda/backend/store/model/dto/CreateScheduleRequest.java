@@ -4,20 +4,19 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"scheduleId"})
 public class CreateScheduleRequest {
 
-    @ToString.Include
-    private LocalDateTime opens;
+    UUID scheduleId;
 
-    @ToString.Include
-    private LocalDateTime closes;
+    LocalDateTime opens;
 
+    LocalDateTime closes;
 }
 

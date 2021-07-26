@@ -5,22 +5,20 @@ import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"paymentId"})
 public class UpdatePaymentRequest {
 
-    @ToString.Include
-    private String method;
+    UUID paymentId;
 
-    @ToString.Include
-    private BigDecimal minOrderAmount;
+    String method;
 
-    @ToString.Include
-    private LocalDate expiryDate;
+    BigDecimal minOrderAmount;
 
+    LocalDate expiryDate;
 }

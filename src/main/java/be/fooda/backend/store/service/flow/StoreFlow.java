@@ -114,5 +114,6 @@ public class StoreFlow {
         return storeMapper.toResponse(storeEntity.get());
     }
 
+    //GET_BY_STORE_NAME
 
 }

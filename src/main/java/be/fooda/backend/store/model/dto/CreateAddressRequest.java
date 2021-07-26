@@ -5,24 +5,18 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"addressId"})
 public class CreateAddressRequest {
 
-    @EqualsAndHashCode.Include
-    private UUID addressId;
+    UUID addressId;
 
-    @ToString.Include
-    private String postcode;
+    String postcode;
 
-    @ToString.Include
-    private String municipality;
+    String municipality;
 
-    @ToString.Include
-    private String city;
-
+    String city;
 }

@@ -8,33 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"storeId"})
 public class UpdateStoreRequest {
 
-    private String eTrackingId;
+    UUID storeId;
 
-    private String name;
+    String eTrackingId;
 
-    private String slogan;
+    String name;
 
-    private String type;
+    String slogan;
 
-    private UUID parentId;
+    String type;
 
-    private String about;
+    UUID parentId;
 
-    private UpdateImageRequest bgImage;
+    String about;
 
-    private UpdateAddressRequest address;
+    UpdateImageRequest bgImage;
 
-    private UpdateContactRequest contact;
+    UpdateAddressRequest address;
 
-    private List<UpdateProductRequest> products = new ArrayList<>();
+    UpdateContactRequest contact;
+
+    List<UpdateProductRequest> products = new ArrayList<>();
 
     public void addProduct(UpdateProductRequest product) {
         this.products.add(product);
@@ -44,9 +45,9 @@ public class UpdateStoreRequest {
         this.products.remove(product);
     }
 
-    private UpdateAuthRequest auth;
+    UpdateAuthRequest auth;
 
-    private List<UpdatePaymentRequest> payments = new ArrayList<>();
+    List<UpdatePaymentRequest> payments = new ArrayList<>();
 
     public void addPayment(UpdatePaymentRequest payment) {
         this.payments.add(payment);
@@ -56,7 +57,7 @@ public class UpdateStoreRequest {
         this.payments.remove(payment);
     }
 
-    private List<UpdateDeliveryRequest> deliveries = new ArrayList<>();
+    List<UpdateDeliveryRequest> deliveries = new ArrayList<>();
 
     public void addDelivery(UpdateDeliveryRequest delivery) {
         this.deliveries.add(delivery);
@@ -66,7 +67,7 @@ public class UpdateStoreRequest {
         this.deliveries.remove(delivery);
     }
 
-    private List<UpdateScheduleRequest> schedules = new ArrayList<>();
+    List<UpdateScheduleRequest> schedules = new ArrayList<>();
 
     public void addSchedule(UpdateScheduleRequest schedule) {
         this.schedules.add(schedule);

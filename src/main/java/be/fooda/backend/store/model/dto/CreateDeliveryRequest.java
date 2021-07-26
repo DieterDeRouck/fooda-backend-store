@@ -5,28 +5,24 @@ import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"deliveryId"})
 public class CreateDeliveryRequest  {
 
-    @ToString.Include
-    private String postcode;
+    UUID deliveryId;
 
-    @ToString.Include
-    private Duration deliveryDuration;
+    String postcode;
 
-    @ToString.Include
-    private BigDecimal minOrderPrice;
+    Duration deliveryDuration;
 
-    @ToString.Include
-    private BigDecimal maxOrderPrice;
+    BigDecimal minOrderPrice;
 
-    @ToString.Include
-    private BigDecimal deliveryCost;
+    BigDecimal maxOrderPrice;
 
+    BigDecimal deliveryCost;
 }

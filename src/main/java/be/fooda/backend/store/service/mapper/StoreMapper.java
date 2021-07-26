@@ -34,10 +34,16 @@ public interface StoreMapper {
 
     UpdateStoreRequest toRequest(StoreEntity source, @MappingTarget UpdateStoreRequest target);
 
+    @Mapping(source = "id", target = "storeId")
+    @Mapping(source = "bgImageId", target = "bgImage.imageId")
     StoreResponse toResponse(StoreEntity source);
 
+    @Mapping(source = "id", target = "storeId")
+    @Mapping(source = "bgImageId", target = "bgImage.imageId")
     Set<StoreResponse> toResponses(Set<StoreEntity> sourceSet);
 
+    @Mapping(source = "id", target = "storeId")
+    @Mapping(source = "bgImageId", target = "bgImage.imageId")
     List<StoreResponse> toResponses(List<StoreEntity> sourceList);
 
 }

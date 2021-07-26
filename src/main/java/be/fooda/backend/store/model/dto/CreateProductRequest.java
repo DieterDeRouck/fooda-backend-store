@@ -9,35 +9,26 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"productId"})
 public class CreateProductRequest {
 
-    private UUID productId;
+    UUID productId;
 
-    @ToString.Include
-    private String name;
+    String name;
 
-    @ToString.Include
-    private Integer menuOrder;
+    Integer menuOrder;
 
-    @ToString.Include
-    private Set<String> categories = new HashSet<>();
+    Set<String> categories = new HashSet<>();
 
-    @ToString.Include
-    private String dietary;
+    String dietary;
 
-    @ToString.Include
-    private String cuisine;
+    String cuisine;
 
-    @ToString.Include
-    private String imageUrl;
+    String imageUrl;
 
-    @ToString.Include
-    private BigDecimal price;
-
+    BigDecimal price;
 }

@@ -8,33 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"storeId"})
 public class CreateStoreRequest {
 
-    private String eTrackingId;
+    UUID storeId;
 
-    private String name;
+    String eTrackingId;
 
-    private String slogan;
+    String name;
 
-    private String type;
+    String slogan;
 
-    private UUID parentId;
+    String type;
 
-    private String about;
+    UUID parentId;
 
-    private CreateImageRequest bgImage;
+    String about;
 
-    private CreateAddressRequest address;
+    CreateImageRequest bgImage;
 
-    private CreateContactRequest contact;
+    CreateAddressRequest address;
 
-    private List<CreateProductRequest> products = new ArrayList<>();
+    CreateContactRequest contact;
+
+    List<CreateProductRequest> products = new ArrayList<>();
 
     public void addProduct(CreateProductRequest product) {
         this.products.add(product);
@@ -44,9 +45,9 @@ public class CreateStoreRequest {
         this.products.remove(product);
     }
 
-    private CreateAuthRequest auth;
+    CreateAuthRequest auth;
 
-    private List<CreatePaymentRequest> payments = new ArrayList<>();
+    List<CreatePaymentRequest> payments = new ArrayList<>();
 
     public void addPayment(CreatePaymentRequest payment) {
         this.payments.add(payment);
@@ -56,7 +57,7 @@ public class CreateStoreRequest {
         this.payments.remove(payment);
     }
 
-    private List<CreateDeliveryRequest> deliveries = new ArrayList<>();
+    List<CreateDeliveryRequest> deliveries = new ArrayList<>();
 
     public void addDelivery(CreateDeliveryRequest delivery) {
         this.deliveries.add(delivery);
@@ -66,7 +67,7 @@ public class CreateStoreRequest {
         this.deliveries.remove(delivery);
     }
 
-    private List<CreateScheduleRequest> schedules = new ArrayList<>();
+    List<CreateScheduleRequest> schedules = new ArrayList<>();
 
     public void addSchedule(CreateScheduleRequest schedule) {
         this.schedules.add(schedule);

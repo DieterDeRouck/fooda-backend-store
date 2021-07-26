@@ -7,23 +7,22 @@ import org.springframework.data.jpa.domain.AbstractAuditable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"authId"})
 public class CreateAuthRequest {
 
-    @EqualsAndHashCode.Include
-    private String authKey;
+    UUID authId;
 
-    @EqualsAndHashCode.Include
-    private String secret;
+    String authKey;
 
-    private LocalDate expiryDate;
+    String secret;
 
-    private String siteUrl;
+    LocalDate expiryDate;
 
-    private String storeUrl;
+    String siteUrl;
+
+     String storeUrl;
 }

@@ -5,39 +5,32 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"authId"})
 public class AuthResponse {
 
-    @ToString.Include
+    UUID authId;
+
     String authKey;
 
-    @ToString.Include
     String secret;
 
-    @ToString.Include
     LocalDate expiryDate;
 
-    @ToString.Include
     String siteUrl;
 
-    @ToString.Include
     String storeUrl;
 
-    @ToString.Include
     String createdBy;
 
-    @ToString.Include
     Date createdDate;
 
-    @ToString.Include
     String lastModifiedBy;
 
-    @ToString.Include
     Date lastModifiedDate;
 }

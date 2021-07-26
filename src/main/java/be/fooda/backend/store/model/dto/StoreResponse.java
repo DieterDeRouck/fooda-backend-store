@@ -9,44 +9,36 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"storeId"})
 public class StoreResponse {
 
-    @ToString.Include
+    UUID storeId;
+
     String eTrackingId;
 
-    @ToString.Include
     String name;
 
-    @ToString.Include
     String slogan;
 
-    @ToString.Include
     String type;
 
     UUID parentId;
 
-    @ToString.Include
     String about;
 
-    @ToString.Include
     Boolean isActive;
 
-    @ToString.Include
     ImageResponse bgImage;
 
-    @ToString.Include
     AddressResponse address;
 
-    @ToString.Include
     ContactResponse contact;
 
-    private List<ProductResponse> products = new ArrayList<>();
+    List<ProductResponse> products = new ArrayList<>();
 
     public void addProduct(ProductResponse product) {
         this.products.add(product);
@@ -56,10 +48,9 @@ public class StoreResponse {
         this.products.remove(product);
     }
 
-    @ToString.Include
-    private AuthResponse auth;
+    AuthResponse auth;
 
-    private List<PaymentResponse> payments = new ArrayList<>();
+    List<PaymentResponse> payments = new ArrayList<>();
 
     public void addPayment(PaymentResponse payment) {
         this.payments.add(payment);
@@ -69,7 +60,7 @@ public class StoreResponse {
         this.payments.remove(payment);
     }
 
-    private List<DeliveryResponse> deliveries = new ArrayList<>();
+    List<DeliveryResponse> deliveries = new ArrayList<>();
 
     public void addDelivery(DeliveryResponse delivery) {
         this.deliveries.add(delivery);
@@ -79,7 +70,7 @@ public class StoreResponse {
         this.deliveries.remove(delivery);
     }
 
-    private List<ScheduleResponse> schedules = new ArrayList<>();
+    List<ScheduleResponse> schedules = new ArrayList<>();
 
     public void addSchedule(ScheduleResponse schedule) {
         this.schedules.add(schedule);
@@ -89,17 +80,11 @@ public class StoreResponse {
         this.schedules.remove(schedule);
     }
 
-
-    @ToString.Include
     String createdBy;
 
-    @ToString.Include
     Date createdDate;
 
-    @ToString.Include
     String lastModifiedBy;
 
-    @ToString.Include
     Date lastModifiedDate;
-
 }

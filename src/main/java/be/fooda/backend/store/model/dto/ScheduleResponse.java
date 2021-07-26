@@ -5,31 +5,27 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"scheduleId"})
 public class ScheduleResponse {
 
-    @ToString.Include
+    UUID scheduleId;
+
     LocalDateTime opens;
 
-    @ToString.Include
     LocalDateTime closes;
 
-    @ToString.Include
     String createdBy;
 
-    @ToString.Include
     Date createdDate;
 
-    @ToString.Include
     String lastModifiedBy;
 
-    @ToString.Include
     Date lastModifiedDate;
 }
 

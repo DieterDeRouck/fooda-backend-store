@@ -20,75 +20,37 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class StoreEntity extends AbstractAuditable<String, UUID> {
+public class StoreEntity {
 
-    private String eTrackingId;
+    @Id
+    @GeneratedValue
+    UUID id;
+
+    String eTrackingId;
 
     @Name
-    private String name;
+    String name;
 
     @Lob
-    private String slogan;
+    String slogan;
 
-    private String type;
+    String type;
 
-    private UUID parentId;
+    UUID parentId;
 
     @Lob
-    private String about;
+    String about;
 
-    private Boolean isActive = Boolean.TRUE;
+    Boolean isActive = Boolean.TRUE;
 
-    @OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
-    @IndexedEmbedded
-    private ImageEntity bgImage;
+    String bgImageId;
 
-    public void setBgImage(ImageEntity bgImage) {
-        bgImage.setStore(this);
-        this.bgImage = bgImage;
-    }
+    String addressId;
 
-    @OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
-    @IndexedEmbedded
-    private AddressEntity address;
+    String contactId;
 
-    public void setAddress(AddressEntity address) {
-        address.setStore(this);
-        this.address = address;
-    }
-
-    @OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
-    @IndexedEmbedded
-    private ContactEntity contact;
-
-    public void setContact(ContactEntity contact) {
-        contact.setStore(this);
-        this.contact = contact;
-    }
-
-    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
-    @IndexedEmbedded
-    private List<ProductEntity> products = new ArrayList<>();
-
-    public void setProducts(List<ProductEntity> products) {
-        this.products = products.stream()
-                .map(this::setOneProduct).collect(Collectors.toList());
-    }
-
-    private ProductEntity setOneProduct(ProductEntity menuItem) {
-        menuItem.setStore(this);
-        return menuItem;
-    }
-
-    public void addProduct(ProductEntity product) {
-        product.setStore(this);
-        this.products.add(product);
-    }
-
-    public void removeProduct(ProductEntity product) {
-        product.setStore(null);
-        this.products.remove(product);
-    }
+    @ElementCollection
+    List<String> products = new ArrayList<>();
 
     @OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
     @IndexedEmbedded
@@ -101,57 +63,56 @@ public class StoreEntity extends AbstractAuditable<String, UUID> {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @IndexedEmbedded
-    private List<PaymentEntity> payments = new ArrayList<>();
+    private List<PaymentEntity> acceptedPayments = new ArrayList<>();
 
-    public void setPayments(List<PaymentEntity> acceptedPaymentMethods) {
-        this.payments = acceptedPaymentMethods.stream()
-                .map(this::setOnePayment)
+    public void setAcceptedPayments(List<PaymentEntity> acceptedPaymentMethods) {
+        this.acceptedPayments = acceptedPaymentMethods.stream()
+                .map(this::setOneAcceptedPayment)
                 .collect(Collectors.toList());
     }
 
-    private PaymentEntity setOnePayment(PaymentEntity acceptedPaymentMethod) {
+    private PaymentEntity setOneAcceptedPayment(PaymentEntity acceptedPaymentMethod) {
         acceptedPaymentMethod.setStore(this);
         return acceptedPaymentMethod;
     }
 
-    public void addPayment(PaymentEntity payment) {
+    public void addAcceptedPayment(PaymentEntity payment) {
         payment.setStore(this);
-        this.payments.add(payment);
+        this.acceptedPayments.add(payment);
     }
 
-    public void removePayment(PaymentEntity payment) {
+    public void removeAcceptedPayment(PaymentEntity payment) {
         payment.setStore(null);
-        this.payments.remove(payment);
+        this.acceptedPayments.remove(payment);
     }
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @IndexedEmbedded
-    private List<DeliveryEntity> deliveries = new ArrayList<>();
+    private List<DeliveryEntity> deliveryLocations = new ArrayList<>();
 
-    public void setDeliveries(List<DeliveryEntity> deliveryLocations) {
-        this.deliveries = deliveryLocations.stream()
-                .map(this::setOneDelivery).collect(Collectors.toList());
+    public void setDeliveryLocations(List<DeliveryEntity> deliveryLocations) {
+        this.deliveryLocations = deliveryLocations.stream()
+                .map(this::setOneDeliveryLocation).collect(Collectors.toList());
     }
 
-    private DeliveryEntity setOneDelivery(DeliveryEntity deliveryLocation) {
+    private DeliveryEntity setOneDeliveryLocation(DeliveryEntity deliveryLocation) {
         deliveryLocation.setStore(this);
         return deliveryLocation;
     }
 
-    public void addDelivery(DeliveryEntity delivery) {
+    public void addDeliveryLocation(DeliveryEntity delivery) {
         delivery.setStore(this);
-        this.deliveries.add(delivery);
+        this.deliveryLocations.add(delivery);
     }
 
-    public void removeDelivery(DeliveryEntity delivery) {
+    public void removeDeliveryLocation(DeliveryEntity delivery) {
         delivery.setStore(null);
-        this.deliveries.remove(delivery);
+        this.deliveryLocations.remove(delivery);
     }
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @IndexedEmbedded
     private List<ScheduleEntity> schedules = new ArrayList<>();
-
 
     public void setSchedules(List<ScheduleEntity> workingHours) {
         this.schedules = workingHours.stream()
@@ -159,9 +120,9 @@ public class StoreEntity extends AbstractAuditable<String, UUID> {
                 .collect(Collectors.toList());
     }
 
-    private ScheduleEntity setOneSchedule(ScheduleEntity foodaStoreWorkingHours) {
-        foodaStoreWorkingHours.setStore(this);
-        return foodaStoreWorkingHours;
+    private ScheduleEntity setOneSchedule(ScheduleEntity schedule) {
+        schedule.setStore(this);
+        return schedule;
     }
 
     public void addSchedule(ScheduleEntity schedule) {

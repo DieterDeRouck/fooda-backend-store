@@ -9,23 +9,20 @@
   "bgImage": {
     "mediaId": UUID,
     "type": String,
-    "url": String,
-    "store": StoreEntity
+    "url": String
   },
   "address": {
     "addressId": UUID,
     "postcode": String,
     "municipality": String,
-    "city": String,
-    "store": StoreEntity
+    "city": String
   },
   "contact": {
     "contactId": UUID,
     "phone": String,
     "email": String,
     "firstName": String,
-    "lastName": String,
-    "store": StoreEntity
+    "lastName": String
   },
   "products": [
     List<ProductEntity>
@@ -34,8 +31,7 @@
     "authKey": String,
     "secret": String,
     "siteUrl": String,
-    "storeUrl": String,
-    "store": StoreEntity
+    "storeUrl": String
   },
   "payments": [
     List<PaymentEntity>

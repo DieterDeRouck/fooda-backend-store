@@ -5,31 +5,28 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"id"})
 @Entity
-public class ScheduleEntity extends AbstractAuditable<String, UUID> {
+public class ScheduleEntity {
 
-    @ToString.Include
-    private LocalDateTime opens;
+    @Id
+    @GeneratedValue
+    UUID id;
 
-    @ToString.Include
-    private LocalDateTime closes;
+    LocalDateTime opens;
+
+    LocalDateTime closes;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     @ToString.Exclude
-    private StoreEntity store;
+    StoreEntity store;
 }
 

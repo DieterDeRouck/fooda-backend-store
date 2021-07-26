@@ -14,49 +14,37 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"paymentId"})
 public class ProductResponse {
 
-    @EqualsAndHashCode.Include
     UUID productId;
 
-    @ToString.Include
     String name;
 
-    @ToString.Include
     Integer menuOrder;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable
     Set<String> categories = new HashSet<>();
 
-    @ToString.Include
     String dietary;
 
-    @ToString.Include
     String cuisine;
 
     @URL
     String imageUrl;
 
-    @ToString.Include
     BigDecimal price;
 
-    @ToString.Include
     String createdBy;
 
-    @ToString.Include
     Date createdDate;
 
-    @ToString.Include
     String lastModifiedBy;
 
-    @ToString.Include
     Date lastModifiedDate;
-
 }

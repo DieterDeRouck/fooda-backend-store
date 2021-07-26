@@ -5,27 +5,21 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString(onlyExplicitlyIncluded = true)
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"contactId"})
 public class CreateContactRequest {
 
-    @EqualsAndHashCode.Include
-    private UUID contactId;
+    UUID contactId;
 
-    @ToString.Include
-    private String phone;
+    String phone;
 
-    @ToString.Include
-    private String email;
+    String email;
 
-    @ToString.Include
-    private String firstName;
+    String firstName;
 
-    @ToString.Include
-    private String lastName;
+    String lastName;
 
 }
