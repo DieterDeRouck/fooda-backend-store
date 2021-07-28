@@ -8,7 +8,9 @@ import be.fooda.backend.store.model.entity.StoreEntity;
 import be.fooda.backend.store.model.http.HttpFailureMessages;
 import be.fooda.backend.store.service.exception.ResourceNotFoundException;
 import be.fooda.backend.store.service.mapper.StoreMapper;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,11 +22,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Service
 public class StoreFlow {
 
-    private final StoreRepository storeRepository;
-    private final StoreMapper storeMapper;
+    StoreRepository storeRepository;
+    StoreMapper storeMapper;
 
     /*
         Responsibilities of this class:

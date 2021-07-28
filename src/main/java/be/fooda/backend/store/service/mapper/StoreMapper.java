@@ -1,6 +1,5 @@
 package be.fooda.backend.store.service.mapper;
 
-
 import be.fooda.backend.store.model.dto.CreateStoreRequest;
 import be.fooda.backend.store.model.dto.StoreResponse;
 import be.fooda.backend.store.model.dto.UpdateStoreRequest;
@@ -8,7 +7,6 @@ import be.fooda.backend.store.model.entity.StoreEntity;
 import org.mapstruct.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Mapper(
@@ -36,14 +34,20 @@ public interface StoreMapper {
 
     @Mapping(source = "id", target = "storeId")
     @Mapping(source = "bgImageId", target = "bgImage.imageId")
+    @Mapping(source = "addressId", target = "address.addressId")
+    @Mapping(source = "contactId", target = "contact.contactId")
     StoreResponse toResponse(StoreEntity source);
 
     @Mapping(source = "id", target = "storeId")
     @Mapping(source = "bgImageId", target = "bgImage.imageId")
+    @Mapping(source = "addressId", target = "address.addressId")
+    @Mapping(source = "contactId", target = "contact.contactId")
     Set<StoreResponse> toResponses(Set<StoreEntity> sourceSet);
 
     @Mapping(source = "id", target = "storeId")
     @Mapping(source = "bgImageId", target = "bgImage.imageId")
+    @Mapping(source = "addressId", target = "address.addressId")
+    @Mapping(source = "contactId", target = "contact.contactId")
     List<StoreResponse> toResponses(List<StoreEntity> sourceList);
 
 }
