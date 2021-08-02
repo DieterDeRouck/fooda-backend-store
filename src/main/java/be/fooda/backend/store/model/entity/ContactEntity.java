@@ -4,9 +4,12 @@ import be.fooda.backend.store.service.validation.Name;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -14,11 +17,11 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = {"contactId"})
 @Entity
-public class ContactEntity {
+public class ContactEntity implements Serializable, Persistable<Long> {
 
     @Id
     @GeneratedValue
-    UUID contactId;
+    Long contactId;
 
     String phone;
 
@@ -34,4 +37,14 @@ public class ContactEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     StoreEntity store;
+
+    @Override
+    public Long getId() {
+        return contactId;
+    }
+
+    @Override
+    public boolean isNew() {
+        return Objects.isNull(contactId);
+    }
 }

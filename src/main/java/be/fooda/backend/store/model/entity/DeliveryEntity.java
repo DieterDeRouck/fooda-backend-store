@@ -3,11 +3,14 @@ package be.fooda.backend.store.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -15,11 +18,11 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = {"deliveryId"})
 @Entity
-public class DeliveryEntity {
+public class DeliveryEntity implements Serializable, Persistable<Long> {
 
     @Id
     @GeneratedValue
-    UUID deliveryId;
+    Long deliveryId;
 
     String postcode;
 
@@ -38,4 +41,14 @@ public class DeliveryEntity {
     @JsonIgnore
     @ToString.Exclude
     StoreEntity store;
+
+    @Override
+    public Long getId() {
+        return deliveryId;
+    }
+
+    @Override
+    public boolean isNew() {
+        return Objects.isNull(deliveryId);
+    }
 }

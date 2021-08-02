@@ -3,10 +3,13 @@ package be.fooda.backend.store.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -14,11 +17,11 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = {"scheduleId"})
 @Entity
-public class ScheduleEntity {
+public class ScheduleEntity implements Serializable, Persistable<Long> {
 
     @Id
     @GeneratedValue
-    UUID scheduleId;
+    Long scheduleId;
 
     LocalDateTime opens;
 
@@ -28,5 +31,15 @@ public class ScheduleEntity {
     @JsonIgnore
     @ToString.Exclude
     StoreEntity store;
+
+    @Override
+    public Long getId() {
+        return this.scheduleId;
+    }
+
+    @Override
+    public boolean isNew() {
+        return Objects.isNull(scheduleId);
+    }
 }
 

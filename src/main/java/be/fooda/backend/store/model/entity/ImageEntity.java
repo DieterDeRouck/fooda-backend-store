@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -15,11 +18,11 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = {"mediaId"})
 @Entity
-public class ImageEntity {
+public class ImageEntity implements Serializable, Persistable<Long> {
 
     @Id
     @GeneratedValue
-    UUID mediaId;
+    Long mediaId;
 
     String type;
 
@@ -31,4 +34,14 @@ public class ImageEntity {
     @JsonIgnore
     @ToString.Exclude
     StoreEntity store;
+
+    @Override
+    public Long getId() {
+        return mediaId;
+    }
+
+    @Override
+    public boolean isNew() {
+        return Objects.isNull(mediaId);
+    }
 }

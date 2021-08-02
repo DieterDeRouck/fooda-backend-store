@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,11 +21,11 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = {"productId"})
 @Entity
-public class ProductEntity {
+public class ProductEntity implements Serializable, Persistable<Long> {
 
     @Id
     @GeneratedValue
-    UUID productId;
+    Long productId;
 
     String name;
 
@@ -46,4 +49,13 @@ public class ProductEntity {
     @ToString.Exclude
     StoreEntity store;
 
+    @Override
+    public Long getId() {
+        return productId;
+    }
+
+    @Override
+    public boolean isNew() {
+        return Objects.isNull(productId);
+    }
 }

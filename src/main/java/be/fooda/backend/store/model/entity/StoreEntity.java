@@ -5,11 +5,13 @@ import be.fooda.backend.store.service.validation.Name;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
-import org.springframework.data.jpa.domain.AbstractAuditable;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -20,11 +22,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class StoreEntity {
+public class StoreEntity implements Serializable, Persistable<Long> {
 
     @Id
     @GeneratedValue
-    UUID id;
+    Long id;
 
     String eTrackingId;
 
@@ -135,4 +137,8 @@ public class StoreEntity {
         this.schedules.remove(schedule);
     }
 
+    @Override
+    public boolean isNew() {
+        return Objects.isNull(id);
+    }
 }
