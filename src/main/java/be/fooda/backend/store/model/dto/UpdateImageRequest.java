@@ -12,7 +12,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"mediaId"})
 public class UpdateImageRequest {
 
-    UUID mediaId;
+    Long mediaId;
 
     String type;
 

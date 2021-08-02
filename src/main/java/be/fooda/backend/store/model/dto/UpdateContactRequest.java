@@ -18,7 +18,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"contactId"})
 public class UpdateContactRequest  {
 
-    UUID contactId;
+    Long contactId;
 
     String phone;
 

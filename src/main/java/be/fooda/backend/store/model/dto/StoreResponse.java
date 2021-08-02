@@ -16,7 +16,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"storeId"})
 public class StoreResponse {
 
-    UUID storeId;
+    Long storeId;
 
     String eTrackingId;
 

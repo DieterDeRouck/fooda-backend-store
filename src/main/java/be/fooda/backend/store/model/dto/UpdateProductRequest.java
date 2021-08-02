@@ -16,7 +16,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"productId"})
 public class UpdateProductRequest {
 
-    UUID productId;
+    Long productId;
 
     String name;
 

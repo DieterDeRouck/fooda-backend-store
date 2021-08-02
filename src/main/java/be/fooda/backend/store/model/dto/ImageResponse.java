@@ -13,7 +13,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"imageId"})
 public class ImageResponse {
 
-    UUID imageId;
+    Long imageId;
 
     String type;
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"scheduleId"})
 public class ScheduleResponse {
 
-    UUID scheduleId;
+    Long scheduleId;
 
     LocalDateTime opens;
 

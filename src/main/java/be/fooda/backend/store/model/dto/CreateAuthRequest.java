@@ -14,8 +14,6 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"authId"})
 public class CreateAuthRequest {
 
-    UUID authId;
-
     String authKey;
 
     String secret;
@@ -24,5 +22,5 @@ public class CreateAuthRequest {
 
     String siteUrl;
 
-     String storeUrl;
+    String storeUrl;
 }

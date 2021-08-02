@@ -14,7 +14,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"authId"})
 public class AuthResponse {
 
-    UUID authId;
+    Long authId;
 
     String authKey;
 

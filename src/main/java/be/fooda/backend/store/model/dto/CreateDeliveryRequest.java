@@ -14,8 +14,6 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"deliveryId"})
 public class CreateDeliveryRequest  {
 
-    UUID deliveryId;
-
     String postcode;
 
     Duration deliveryDuration;

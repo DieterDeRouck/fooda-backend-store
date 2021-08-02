@@ -12,8 +12,6 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"addressId"})
 public class CreateAddressRequest {
 
-    UUID addressId;
-
     String postcode;
 
     String municipality;

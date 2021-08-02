@@ -15,7 +15,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"deliveryId"})
 public class DeliveryResponse {
 
-    UUID deliveryId;
+    Long deliveryId;
 
     String postcode;
 

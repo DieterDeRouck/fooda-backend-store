@@ -16,8 +16,6 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"productId"})
 public class CreateProductRequest {
 
-    UUID productId;
-
     String name;
 
     Integer menuOrder;

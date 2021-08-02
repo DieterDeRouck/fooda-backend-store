@@ -21,8 +21,6 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"paymentId"})
 public class CreatePaymentRequest {
 
-    UUID paymentId;
-
     String method;
 
     BigDecimal minOrderAmount;

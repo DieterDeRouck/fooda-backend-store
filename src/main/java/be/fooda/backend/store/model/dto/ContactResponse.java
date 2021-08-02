@@ -13,7 +13,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"contactId"})
 public class ContactResponse {
 
-    UUID contactId;
+    Long contactId;
 
     String phone;
 

@@ -12,7 +12,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"addressId"})
 public class UpdateAddressRequest {
 
-    UUID addressId;
+    Long addressId;
 
     String postcode;
 

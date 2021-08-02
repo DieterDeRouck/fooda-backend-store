@@ -15,7 +15,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"paymentId"})
 public class PaymentResponse {
 
-    UUID paymentId;
+    Long paymentId;
 
     String method;
 

@@ -12,8 +12,6 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"mediaId"})
 public class CreateImageRequest {
 
-    UUID mediaId;
-
     String type;
 
     String url;

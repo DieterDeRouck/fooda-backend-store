@@ -12,8 +12,6 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"contactId"})
 public class CreateContactRequest {
 
-    UUID contactId;
-
     String phone;
 
     String email;

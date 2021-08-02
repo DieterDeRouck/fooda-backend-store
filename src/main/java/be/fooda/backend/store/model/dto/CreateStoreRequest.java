@@ -15,8 +15,6 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"storeId"})
 public class CreateStoreRequest {
 
-    UUID storeId;
-
     String eTrackingId;
 
     String name;

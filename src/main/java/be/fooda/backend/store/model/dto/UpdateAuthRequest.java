@@ -13,7 +13,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"authId"})
 public class UpdateAuthRequest {
 
-    UUID authId;
+    Long authId;
 
     String authKey;
 

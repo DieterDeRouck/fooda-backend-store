@@ -13,7 +13,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"scheduleId"})
 public class UpdateScheduleRequest {
 
-    UUID scheduleId;
+    Long scheduleId;
 
     LocalDateTime opens;
 
