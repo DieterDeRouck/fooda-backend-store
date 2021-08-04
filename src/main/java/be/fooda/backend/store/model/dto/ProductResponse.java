@@ -23,7 +23,7 @@ public class ProductResponse {
 
     Long productId;
 
-    String name;
+    String productName;
 
     Integer menuOrder;
 

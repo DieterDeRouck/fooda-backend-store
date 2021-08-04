@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class UserClient {
 
-    public boolean existsById(UUID id) {
+    public boolean existsById(Long id) {
         return true;
     }
 }

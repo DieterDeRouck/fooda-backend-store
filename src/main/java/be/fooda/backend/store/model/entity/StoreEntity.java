@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
@@ -38,21 +37,21 @@ public class StoreEntity implements Serializable, Persistable<Long> {
 
     String type;
 
-    UUID parentId;
+    Long parentId;
 
     @Lob
     String about;
 
     Boolean isActive = Boolean.TRUE;
 
-    String bgImageId;
+    Long bgImageId;
 
-    String addressId;
+    Long addressId;
 
-    String contactId;
+    Long contactId;
 
     @ElementCollection
-    List<String> products = new ArrayList<>();
+    List<Long> products = new ArrayList<>();
 
     @OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
     @IndexedEmbedded

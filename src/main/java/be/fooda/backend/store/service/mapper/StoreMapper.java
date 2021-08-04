@@ -2,6 +2,7 @@ package be.fooda.backend.store.service.mapper;
 
 import be.fooda.backend.store.model.dto.CreateStoreRequest;
 import be.fooda.backend.store.model.dto.StoreResponse;
+import be.fooda.backend.store.model.dto.UpdateProductRequest;
 import be.fooda.backend.store.model.dto.UpdateStoreRequest;
 import be.fooda.backend.store.model.entity.StoreEntity;
 import org.mapstruct.*;
@@ -22,6 +23,7 @@ public interface StoreMapper {
 
     List<StoreEntity> toEntities(List<CreateStoreRequest> sourceList);
 
+    //@Mapping(source = "productId", target = "Id")?
     StoreEntity toEntity(UpdateStoreRequest source, @MappingTarget StoreEntity target);
 
     List<StoreEntity> toEntities(List<UpdateStoreRequest> sources, @MappingTarget List<StoreEntity> targets);

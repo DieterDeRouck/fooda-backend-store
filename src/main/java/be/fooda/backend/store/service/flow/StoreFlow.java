@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -67,7 +66,7 @@ public class StoreFlow {
     }
 
     // UPDATE_STORE(UNIQUE_IDENTIFIER, REQUEST)
-    public void updateStore(UUID id, UpdateStoreRequest request) {
+    public void updateStore(Long id, UpdateStoreRequest request) {
 
         // IF(NULL)
         if (Objects.isNull(request)) {
@@ -104,7 +103,7 @@ public class StoreFlow {
     }
 
     //GET_BY_ID(ID)
-    public StoreResponse findByID(UUID id) throws ResourceNotFoundException{
+    public StoreResponse findByID(Long id) throws ResourceNotFoundException{
 
         //READ_FROM_DB(ID)
         Optional<StoreEntity> storeEntity = storeRepository.findById(id);

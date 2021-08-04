@@ -17,30 +17,30 @@ public class CreateStoreRequest {
 
     String eTrackingId;
 
-    String name;
+    String title;
 
     String slogan;
 
     String type;
 
-    UUID parentId;
+    Long parentId;
 
     String about;
 
-    CreateImageRequest bgImage;
+    Long bgImageId;
 
-    CreateAddressRequest address;
+    Long addressId;
 
-    CreateContactRequest contact;
+    Long contactId;
 
-    List<CreateProductRequest> products = new ArrayList<>();
+    List<Long> products = new ArrayList<>();
 
-    public void addProduct(CreateProductRequest product) {
-        this.products.add(product);
+    public void addProduct(Long productId) {
+        this.products.add(productId);
     }
 
-    public void removeProduct(CreateProductRequest product) {
-        this.products.remove(product);
+    public void removeProduct(Long productId) {
+        this.products.remove(productId);
     }
 
     CreateAuthRequest auth;

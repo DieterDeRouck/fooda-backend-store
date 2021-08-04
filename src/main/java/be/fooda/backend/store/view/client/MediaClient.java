@@ -10,7 +10,7 @@ import java.util.UUID;
 @Component
 public class MediaClient {
 
-    public boolean existsById(UUID id) {
+    public boolean existsById(Long id) {
         return true;
     }
 

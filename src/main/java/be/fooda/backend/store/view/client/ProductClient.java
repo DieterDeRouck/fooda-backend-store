@@ -11,7 +11,7 @@ import java.util.UUID;
 @Component
 public class ProductClient {
 
-    public boolean existsByIdSet(Set<UUID> productsSet) {
+    public boolean existsByIdSet(Set<Long> productsSet) {
         return true;
     }
 }

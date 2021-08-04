@@ -1,6 +1,5 @@
 package be.fooda.backend.store.model.dto;
 
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -18,7 +17,7 @@ public class UpdateProductRequest {
 
     Long productId;
 
-    String name;
+    String productName;
 
     Integer menuOrder;
 

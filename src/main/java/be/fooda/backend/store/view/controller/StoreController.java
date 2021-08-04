@@ -59,7 +59,7 @@ public class StoreController {
 
     // @PutMapping // UPDATE STORE(S)
     @PutMapping(PUT_SINGLE)
-    public ResponseEntity<String> updateStore(@RequestParam("storeId") UUID id, @RequestBody @Valid UpdateStoreRequest request) {
+    public ResponseEntity<String> updateStore(@RequestParam("storeId") Long id, @RequestBody @Valid UpdateStoreRequest request) {
 
         // UPDATE_FLOW
         storeFlow.updateStore(id, request);
@@ -72,7 +72,7 @@ public class StoreController {
 
     // DELETE_BY_ID
     @DeleteMapping(DELETE_BY_ID)
-    public ResponseEntity<String> deleteById(@RequestParam("storeId") UUID id) {
+    public ResponseEntity<String> deleteById(@RequestParam("storeId") Long id) {
 
 
 
@@ -82,7 +82,7 @@ public class StoreController {
 
     // DELETE_BY_ID_PERMANENTLY
     @DeleteMapping(DELETE_BY_ID_PERMANENTLY)
-    public ResponseEntity<String> deleteByIdPermanently(@RequestParam("storeId") UUID id) {
+    public ResponseEntity<String> deleteByIdPermanently(@RequestParam("storeId") Long id) {
 
 
         // RETURN_SUCCESS
@@ -111,7 +111,7 @@ public class StoreController {
 
     // GET_BY_ID
     @GetMapping(GET_BY_ID)
-    public ResponseEntity<StoreResponse> findStoreById(@RequestParam("storeId") UUID id) {
+    public ResponseEntity<StoreResponse> findStoreById(@RequestParam("storeId") Long id) {
 
         // START_SELECT_FLOW
         final StoreResponse response = storeFlow.findByID(id);

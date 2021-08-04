@@ -19,13 +19,13 @@ public class UpdateStoreRequest {
 
     String eTrackingId;
 
-    String name;
+    String storeName;
 
     String slogan;
 
     String type;
 
-    UUID parentId;
+    Long parentId;
 
     String about;
 

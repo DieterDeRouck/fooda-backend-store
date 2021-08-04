@@ -20,7 +20,7 @@ public class StoreResponse {
 
     String eTrackingId;
 
-    String name;
+    String storeName;
 
     String slogan;
 
