@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @Setter
 @ToString(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class StoreEntity implements Serializable, Persistable<Long> {
