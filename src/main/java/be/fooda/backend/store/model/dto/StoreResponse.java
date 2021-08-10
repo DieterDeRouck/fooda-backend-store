@@ -26,7 +26,7 @@ public class StoreResponse {
 
     String type;
 
-    UUID parentId;
+    Long parentId;
 
     String about;
 
