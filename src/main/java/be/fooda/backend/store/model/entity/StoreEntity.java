@@ -1,7 +1,6 @@
 package be.fooda.backend.store.model.entity;
 
 
-import be.fooda.backend.store.service.validation.Name;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
@@ -28,8 +27,7 @@ public class StoreEntity implements Serializable, Persistable<Long> {
 
     String eTrackingId;
 
-    @Name
-    String name;
+    String title;
 
     @Lob
     String slogan;

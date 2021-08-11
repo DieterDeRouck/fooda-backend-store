@@ -48,7 +48,7 @@ public class StoreFlow {
         }
 
         //  IF(STORE_EXISTS)
-        boolean exists = storeRepository.existsByNameAndAddress_AddressId(
+        boolean exists = storeRepository.existsByTitleAndAddressId(
                 request.getTitle(), request.getAddressId()
         );
 

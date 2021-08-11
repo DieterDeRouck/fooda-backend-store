@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.FutureOrPresent;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -25,5 +26,5 @@ public class CreatePaymentRequest {
 
     BigDecimal minOrderAmount;
 
-    LocalDate expiryDate;
+    String expiryDate;
 }

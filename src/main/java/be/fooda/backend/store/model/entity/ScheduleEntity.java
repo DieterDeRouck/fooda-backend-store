@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -23,9 +24,9 @@ public class ScheduleEntity implements Serializable, Persistable<Long> {
     @GeneratedValue
     Long scheduleId;
 
-    LocalDateTime opens;
+    String opens;
 
-    LocalDateTime closes;
+    String closes;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore

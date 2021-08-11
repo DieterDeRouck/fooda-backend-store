@@ -26,7 +26,7 @@ public class DeliveryEntity implements Serializable, Persistable<Long> {
 
     String postcode;
 
-    Duration deliveryDuration;
+    Double deliveryDuration;
 
     @Column(columnDefinition = "DECIMAL(8,2)")
     BigDecimal minOrderPrice;

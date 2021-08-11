@@ -19,7 +19,7 @@ public class UpdateStoreRequest {
 
     String eTrackingId;
 
-    String storeName;
+    String title;
 
     String slogan;
 
@@ -35,14 +35,14 @@ public class UpdateStoreRequest {
 
     UpdateContactRequest contact;
 
-    List<UpdateProductRequest> products = new ArrayList<>();
+    List<Long> products = new ArrayList<>();
 
-    public void addProduct(UpdateProductRequest product) {
-        this.products.add(product);
+    public void addProduct(Long productId) {
+        this.products.add(productId);
     }
 
-    public void removeProduct(UpdateProductRequest product) {
-        this.products.remove(product);
+    public void removeProduct(Long productId) {
+        this.products.remove(productId);
     }
 
     UpdateAuthRequest auth;

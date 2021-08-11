@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ public class CreateAuthRequest {
 
     String secret;
 
-    LocalDate expiryDate;
+    String expiryDate;
 
     String siteUrl;
 

@@ -19,7 +19,7 @@ spring:
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/storedb
     username: ${MYSQL_HOST_USERNAME:fooda}
-    password: ${MYSQL_HOST_PASSWORD:f00d@}
+    password: ${MYSQL_HOST_PASSWORD:fooda}
     driver-class-name: com.mysql.cj.jdbc.Driver
   security:
     user:

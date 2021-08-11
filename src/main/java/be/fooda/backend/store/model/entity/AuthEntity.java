@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -31,8 +32,8 @@ public class AuthEntity implements Serializable, Persistable<Long> {
 
     String secret;
 
-    @FutureOrPresent
-    LocalDate expiryDate;
+    //@FutureOrPresent
+    String expiryDate;
 
     @URL(protocol = "https")
     String siteUrl;

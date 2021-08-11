@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -20,5 +21,5 @@ public class UpdatePaymentRequest {
 
     BigDecimal minOrderAmount;
 
-    LocalDate expiryDate;
+    String expiryDate;
 }

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -29,8 +30,8 @@ public class PaymentEntity implements Serializable, Persistable<Long> {
 
     BigDecimal minOrderAmount;
 
-    @FutureOrPresent
-    LocalDate expiryDate;
+    //@FutureOrPresent
+    String expiryDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore

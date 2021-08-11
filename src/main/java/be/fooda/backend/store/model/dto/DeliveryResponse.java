@@ -19,7 +19,7 @@ public class DeliveryResponse {
 
     String postcode;
 
-    Duration deliveryDuration;
+    Double deliveryDuration;
 
     BigDecimal minOrderPrice;
 
@@ -29,7 +29,7 @@ public class DeliveryResponse {
 
     String createdBy;
 
-    Date createdDate;
+    String createdDate;
 
     String lastModifiedBy;
 

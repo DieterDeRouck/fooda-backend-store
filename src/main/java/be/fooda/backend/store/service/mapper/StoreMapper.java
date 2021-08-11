@@ -1,9 +1,6 @@
 package be.fooda.backend.store.service.mapper;
 
-import be.fooda.backend.store.model.dto.CreateStoreRequest;
-import be.fooda.backend.store.model.dto.StoreResponse;
-import be.fooda.backend.store.model.dto.UpdateProductRequest;
-import be.fooda.backend.store.model.dto.UpdateStoreRequest;
+import be.fooda.backend.store.model.dto.*;
 import be.fooda.backend.store.model.entity.StoreEntity;
 import org.mapstruct.*;
 import java.util.List;
@@ -37,6 +34,16 @@ public interface StoreMapper {
     @Mapping(source = "addressId", target = "address.addressId")
     @Mapping(source = "contactId", target = "contact.contactId")
     StoreResponse toResponse(StoreEntity source);
+
+    default ProductResponse toResponse(Long id){
+        ProductResponse response = new ProductResponse();
+        response.setProductId(id);
+        return response;
+    }
+
+    default Long toEntity(ProductResponse response){
+        return response.getProductId();
+    }
 
     @Mapping(source = "id", target = "storeId")
     @Mapping(source = "bgImageId", target = "bgImage.imageId")

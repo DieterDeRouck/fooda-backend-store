@@ -3,6 +3,7 @@ package be.fooda.backend.store.model.dto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,8 +16,8 @@ public class UpdateScheduleRequest {
 
     Long scheduleId;
 
-    LocalDateTime opens;
+    String opens;
 
-    LocalDateTime closes;
+    String closes;
 }
 
