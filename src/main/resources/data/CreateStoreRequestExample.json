@@ -1,0 +1,42 @@
+{
+  "about": "best pizzeria in town",
+  "addressId": 111,
+  "auth": {
+    "authKey": "123",
+    "expiryDate": "01/01/2025",
+    "secret": "azerty",
+    "siteUrl": "https://www.fooda.be/restaurants/1",
+    "storeUrl": "https://www.fooda.be/stores/1/store"
+  },
+  "bgImageId": 123,
+  "contactId": 124,
+  "deliveries": [
+    {
+      "deliveryCost": 2,
+      "deliveryDuration": 30,
+      "maxOrderPrice": 1000,
+      "minOrderPrice": 20,
+      "postcode": "9240"
+    }
+  ],
+  "parentId": 1,
+  "payments": [
+    {
+      "expiryDate": "01/01/2025",
+      "method": "Cash",
+      "minOrderAmount": 10
+    }
+  ],
+  "products": [
+    123, 456, 789
+  ],
+  "schedules": [
+    {
+      "closes": "20/08/2021 21:00",
+      "opens": "20/08/2021 16:00"
+    }
+  ],
+  "slogan": "Just pizza",
+  "title": "pizzify",
+  "type": "INTERNAL"
+}
