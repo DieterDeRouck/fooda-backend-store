@@ -18,7 +18,7 @@ public class UpdateDeliveryRequest {
 
     String postcode;
 
-    Duration deliveryDuration;
+    Double deliveryDuration;
 
     BigDecimal minOrderPrice;
 

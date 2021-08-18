@@ -1,0 +1,32 @@
+version: "3.1"
+services:
+  db_server:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: storedb
+      MYSQL_ROOT_PASSWORD: fooda
+    ports:
+      - 3309:3306
+
+  db_admin:
+    image: adminer:4.8.1-standalone
+    restart: always
+    depends_on:
+      - db_server
+    ports:
+      - 9001:8080
+
+  backend:
+    image: yilmazchef/fooda-backend-store:latest
+    depends_on:
+      - db_server
+      - db_admin
+    links:
+      - db_server:db_server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_server:3306/storedb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSOWRD: fooda
+    ports:
+      - 8081:8080

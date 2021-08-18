@@ -16,7 +16,7 @@ public class CreateDeliveryRequest  {
 
     String postcode;
 
-    Duration deliveryDuration;
+    Double deliveryDuration;
 
     BigDecimal minOrderPrice;
 
