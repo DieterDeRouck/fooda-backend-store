@@ -25,7 +25,8 @@ public enum HttpFailureMessages {
     MENU_ITEM_CAN_NOT_BE_DELETED("could not delete menu item"),
     MENU_ITEM_CAN_NOT_BE_EDITED("menu item can't be edited") ,
     STORE_COULD_NOT_BE_DELETED("could not delete the store") ,
-    NO_MENU_ITEM_FOUND("could not find the product")  ;
+    NO_MENU_ITEM_FOUND("could not find the product") ,
+    STORE_ID_IS_REQUIRED("Store ID is required") ;
 
     private final String description;
 }

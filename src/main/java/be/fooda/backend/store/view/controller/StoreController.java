@@ -3,14 +3,18 @@ package be.fooda.backend.store.view.controller;
 import be.fooda.backend.store.model.dto.CreateStoreRequest;
 import be.fooda.backend.store.model.dto.StoreResponse;
 import be.fooda.backend.store.model.dto.UpdateStoreRequest;
+import be.fooda.backend.store.model.http.HttpFailureMessages;
 import be.fooda.backend.store.model.http.HttpSuccessMessages;
+import be.fooda.backend.store.service.exception.ResourceNotFoundException;
 import be.fooda.backend.store.service.flow.StoreFlow;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -120,7 +124,6 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
-/* //temporarily in comments to allow compiling
 
     // SEARCH(KEYWORDS)
     @GetMapping(GET_SEARCH)
@@ -138,11 +141,31 @@ public class StoreController {
 
     }
 
+    @GetMapping(GET_EXISTS_BY_ID)
+    public ResponseEntity existsById(@RequestParam("storeId") Long storeId) {
+
+        final var response = new Object() {
+            public boolean exists = false;
+        };
+
+        // START_SELECT_FLOW
+        try {
+            response.exists = storeFlow.existsById(storeId);
+        } catch (NullPointerException | ResourceNotFoundException | JsonProcessingException exception) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+        }
+
+        final var body = (response.exists == Boolean.TRUE) ? HttpSuccessMessages.STORE_EXISTS.getDescription()
+                : HttpFailureMessages.STORE_DOES_NOT_EXIST.getDescription();
+
+        // RETURN_SUCCESS
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(body);
+    }
+
     // @GetMapping // EXISTS_BY_UNIQUE_FIELDS
     public ResponseEntity<String> existsByUniqueFields(@RequestParam("name") String name, @RequestParam("storeId") UUID storeId) {
         // RETURN_SUCCESS
     }
 
 
- */
 }
