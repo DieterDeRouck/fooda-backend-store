@@ -82,9 +82,9 @@ public class StoreResponse {
 
     String createdBy;
 
-    Date createdDate;
+    String createdDate;
 
     String lastModifiedBy;
 
-    Date lastModifiedDate;
+    String lastModifiedDate;
 }

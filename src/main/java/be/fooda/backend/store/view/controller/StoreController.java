@@ -130,15 +130,7 @@ public class StoreController {
     public ResponseEntity<List<StoreResponse>> search(@RequestParam Map<String, String> keywords) {
 
         // RETURN_SUCCESS
-    }
-
-    // EXISTS_BY_ID
-    @GetMapping
-    public ResponseEntity<String> existsById(@RequestParam("storeId") UUID id) {
-
-
-        // RETURN_SUCCESS
-
+        return ResponseEntity.status(HttpStatus.FOUND).body(Collections.EMPTY_LIST);
     }
 
     @GetMapping(GET_EXISTS_BY_ID)
@@ -162,10 +154,10 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(body);
     }
 
+    /*
     // @GetMapping // EXISTS_BY_UNIQUE_FIELDS
     public ResponseEntity<String> existsByUniqueFields(@RequestParam("name") String name, @RequestParam("storeId") UUID storeId) {
         // RETURN_SUCCESS
     }
-
-
+    */
 }
