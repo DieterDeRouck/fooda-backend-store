@@ -140,7 +140,7 @@ public class StoreFlow {
 
         // LOG
         final var result = new Exists(Map.of("id", id), response);
-        log.info("STORE EXISTS BY UNIQUE FIELDS: " + "\n\n" + jsonMapper.writeValueAsString(result) + "\n\n");
+        log.info("STORE EXISTS BY ID: " + "\n\n" + jsonMapper.writeValueAsString(result) + "\n\n");
 
         return response;
     }

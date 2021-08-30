@@ -1,23 +1,28 @@
 package be.fooda.backend.store.view.controller;
 
+import be.fooda.backend.store.dao.StoreIndexer;
+import be.fooda.backend.store.dao.StoreRepository;
 import be.fooda.backend.store.model.dto.CreateStoreRequest;
+import be.fooda.backend.store.model.dto.ExistsByUniqueFieldsRequest;
 import be.fooda.backend.store.model.dto.StoreResponse;
 import be.fooda.backend.store.model.dto.UpdateStoreRequest;
+import be.fooda.backend.store.model.http.HttpEndpoints;
 import be.fooda.backend.store.model.http.HttpFailureMessages;
 import be.fooda.backend.store.model.http.HttpSuccessMessages;
 import be.fooda.backend.store.service.exception.ResourceNotFoundException;
-import be.fooda.backend.store.service.flow.StoreFlow;
+import be.fooda.backend.store.service.mapper.StoreMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.Collections;
+import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -45,7 +50,9 @@ public class StoreController {
     private static final String DELETE_BY_ID_PERMANENTLY = "delete/one/permanent";
 
     // INJECT_FLOW_BEAN
-    private final StoreFlow storeFlow;
+    StoreRepository storeRepository;
+    StoreMapper storeMapper;
+    StoreIndexer storeIndexer;
 
     // RESPONSE_ENTITY = STATUS, HEADERS, BODY
 
@@ -126,11 +133,27 @@ public class StoreController {
 
 
     // SEARCH(KEYWORDS)
-    @GetMapping(GET_SEARCH)
-    public ResponseEntity<List<StoreResponse>> search(@RequestParam Map<String, String> keywords) {
+    @Transactional
+    @GetMapping(HttpEndpoints.PRODUCTS_SEARCH_TEXT)
+    public ResponseEntity<List<StoreResponse>> search(
+            @PathVariable("keyword") @NotNull String keyword,
+            @RequestParam(
+                    value = HttpEndpoints.PAGE_NUMBER_TEXT,
+                    required = false, defaultValue = HttpEndpoints.PAGE_NUMBER_DEFAULT_VALUE) Integer pageNo,
+            @RequestParam(
+                    value = HttpEndpoints.PAGE_SIZE_TEXT,
+                    required = false, defaultValue = HttpEndpoints.PAGE_SIZE_DEFAULT_VALUE) Integer pageSize) {
 
-        // RETURN_SUCCESS
-        return ResponseEntity.status(HttpStatus.FOUND).body(Collections.EMPTY_LIST);
+        // FLOW_AND_RETURN
+        return ResponseEntity
+                .status(HttpStatus.FOUND)
+                .body(
+                        storeIndexer
+                                .search(PageRequest.of(pageNo - 1, pageSize), keyword)
+                                .stream()
+                                .map(entity -> storeMapper.toResponse(entity))
+                                .collect(Collectors.toUnmodifiableList())
+                );
     }
 
     @GetMapping(GET_EXISTS_BY_ID)
@@ -154,10 +177,14 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(body);
     }
 
-    /*
-    // @GetMapping // EXISTS_BY_UNIQUE_FIELDS
-    public ResponseEntity<String> existsByUniqueFields(@RequestParam("name") String name, @RequestParam("storeId") UUID storeId) {
-        // RETURN_SUCCESS
+    // EXISTS_BY_UNIQUE_FIELDS
+    @Transactional
+    @GetMapping(HttpEndpoints.STORE_EXISTS_BY_UNIQUE_FIELDS)
+    public ResponseEntity<String> existsByUniqueFields(@RequestBody ExistsByUniqueFieldsRequest request) {
+
+        return storeRepository.existsByTitleAndContactId(request.getTitle(), request.getContactId())
+                ? ResponseEntity.status(HttpStatus.FOUND).body(HttpSuccessMessages.STORE_EXISTS.getDescription())
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(HttpFailureMessages.STORE_DOES_NOT_EXIST.getDescription());
     }
-    */
+
 }
