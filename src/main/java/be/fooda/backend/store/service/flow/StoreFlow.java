@@ -133,7 +133,7 @@ public class StoreFlow {
 
         // NULL_VALIDATION
         if (Objects.isNull(id)) {
-            throw new NullPointerException(HttpFailureMessages.STORE_ID_IS_REQUIRED.getDescription())
+            throw new NullPointerException(HttpFailureMessages.STORE_ID_IS_REQUIRED.getDescription());
         }
 
         final var response = storeRepository.existsById(id);

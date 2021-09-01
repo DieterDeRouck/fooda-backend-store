@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @ToString(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(force = true, access = AccessLevel.PUBLIC)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
+@Entity(name = "stores")
 public class StoreEntity implements Serializable, Persistable<Long> {
 
     @Id

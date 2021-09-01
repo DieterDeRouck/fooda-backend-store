@@ -9,14 +9,13 @@ import be.fooda.backend.store.model.dto.UpdateStoreRequest;
 import be.fooda.backend.store.model.http.HttpEndpoints;
 import be.fooda.backend.store.model.http.HttpFailureMessages;
 import be.fooda.backend.store.model.http.HttpSuccessMessages;
-import be.fooda.backend.store.service.exception.ResourceNotFoundException;
 import be.fooda.backend.store.service.mapper.StoreMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -54,87 +53,120 @@ public class StoreController {
     StoreMapper storeMapper;
     StoreIndexer storeIndexer;
 
-    // RESPONSE_ENTITY = STATUS, HEADERS, BODY
+    // CREATE_NEW_STORE
+    @Transactional
+    @PostMapping(HttpEndpoints.STORE_POST_SINGLE_TEXT)
+    public ResponseEntity<String> create(@RequestBody @Valid @NotNull CreateStoreRequest request) {
 
-    @PostMapping(POST_SINGLE) // CREATING NEW STORE
-    public ResponseEntity<String> createStore(@RequestBody @Valid CreateStoreRequest request) {
-
-        // CREATE_FLOW
-        storeFlow.createStore(request);
-
-        // RETURN_SUCCESS
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(HttpSuccessMessages.STORE_CREATED.getDescription());
+        // FLOW_AND_RETURN
+        return storeRepository
+                .findByTitleAndAddressId(request.getTitle(), request.getAddressId())
+                .map(entity -> storeRepository.save(entity))
+                .map(entity -> ResponseEntity
+                        .status(HttpStatus.ACCEPTED)
+                        .header("saved_id", String.valueOf(entity.getId()))
+                        .body(HttpSuccessMessages.STORE_UPDATED.getDescription()))
+                .orElseThrow(() -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, HttpFailureMessages.STORE_ALREADY_EXIST.getDescription());
+                });
     }
 
-    // @PutMapping // UPDATE STORE(S)
-    @PutMapping(PUT_SINGLE)
-    public ResponseEntity<String> updateStore(@RequestParam("storeId") Long id, @RequestBody @Valid UpdateStoreRequest request) {
+    // UPDATE_SINGLE_STORE
+    @Transactional
+    @PutMapping(HttpEndpoints.STORE_PUT_SINGLE_TEXT)
+    public ResponseEntity<String> updateById(@PathVariable("storeId") Long storeId,   @RequestBody @Valid @NotNull UpdateStoreRequest request) {
 
-        // UPDATE_FLOW
-        storeFlow.updateStore(id, request);
-
-        // RETURN_SUCCESS
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(HttpSuccessMessages.STORE_UPDATED.getDescription());
+        // FLOW_AND_RETURN
+        return storeRepository
+                .findById(storeId)
+                .map(entity -> storeMapper.toEntity(request, entity))
+                .map(entity -> storeRepository.save(entity))
+                .map(entity -> ResponseEntity
+                        .status(HttpStatus.ACCEPTED)
+                        .header("updated_id", String.valueOf(entity.getId()))
+                        .body(HttpSuccessMessages.STORE_UPDATED.getDescription()))
+                .orElseThrow(() -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, HttpFailureMessages.STORE_NOT_FOUND.getDescription());
+                });
     }
 
     // DELETE_BY_ID
-    @DeleteMapping(DELETE_BY_ID)
-    public ResponseEntity<String> deleteById(@RequestParam("storeId") Long id) {
+    @Transactional
+    @DeleteMapping(HttpEndpoints.STORE_DELETE_BY_ID)
+    public ResponseEntity<String> deleteById(@PathVariable("storeId") @NotNull Long storeId) {
 
-
-
-        // RETURN_SUCCESS
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(HttpSuccessMessages.STORE_DELETED.getDescription());
+        return storeRepository
+                .findById(storeId)
+                .map(entity -> storeRepository.makePassive(entity.getId()))
+                .map(deleteCount -> deleteCount > 0
+                        ? ResponseEntity
+                        .status(HttpStatus.ACCEPTED)
+                        .body(HttpSuccessMessages.STORE_MADE_PASSIVE.getDescription())
+                        : ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body(HttpFailureMessages.FAILED_TO_MAKE_STORE_PASSIVE.getDescription())
+                )
+                .orElseThrow(() -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, HttpFailureMessages.FAILED_TO_MAKE_STORE_PASSIVE.getDescription());
+                });
     }
 
     // DELETE_BY_ID_PERMANENTLY
-    @DeleteMapping(DELETE_BY_ID_PERMANENTLY)
-    public ResponseEntity<String> deleteByIdPermanently(@RequestParam("storeId") Long id) {
+    @Transactional
+    @DeleteMapping(HttpEndpoints.STORE_DELETE_BY_ID_PERMANENTLY)
+    public ResponseEntity<String> deleteByIdPermanently(@PathVariable("storeId") @NotNull Long storeId) {
 
-
-        // RETURN_SUCCESS
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(HttpSuccessMessages.STORE_DELETED.getDescription());
+        return storeRepository
+                .findById(storeId)
+                .map(entity -> {
+                    storeRepository.deleteById(storeId);
+                    return ResponseEntity
+                            .status(HttpStatus.ACCEPTED)
+                            .body(HttpSuccessMessages.STORE_DELETED.getDescription());
+                })
+                .orElseThrow(() -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, HttpFailureMessages.STORE_NOT_FOUND.getDescription());
+                });
     }
 
-    // @PatchMapping // UPDATE STORE(S) BUT NOT ALL THE FIELDS
-
-
     // GET_ALL
-    @GetMapping(GET_ALL)
-    public ResponseEntity<List<StoreResponse>> findAllStores(
-            @RequestParam(value = PAGE_NUMBER, required = false) Integer pageNo,
-            @RequestParam(value = PAGE_SIZE, required = false) Integer pageSize) {
+    @Transactional
+    @GetMapping(HttpEndpoints.STORE_FIND_ALL_TEXT)
+    public ResponseEntity<List<StoreResponse>> findAll(
+            @RequestParam(value = HttpEndpoints.PAGE_NUMBER_TEXT,
+                    required = false, defaultValue = HttpEndpoints.PAGE_NUMBER_DEFAULT_VALUE) Integer pageNo,
+            @RequestParam(value = HttpEndpoints.PAGE_SIZE_TEXT,
+                    required = false, defaultValue = HttpEndpoints.PAGE_SIZE_DEFAULT_VALUE) Integer pageSize) {
 
-        // SET DEFAULT VALUES ..
-        pageNo = PAGE_NUMBER_DEFAULT_VALUE;
-        pageSize = PAGE_SIZE_DEFAULT_VALUE;
-
-        // START_SELECT_FLOW
-        final List<StoreResponse> responses = storeFlow.findAll(pageNo, pageSize);
-
-        // RETURN_ALL_STORES_IN_PAGES
-        return ResponseEntity.status(HttpStatus.FOUND).body(responses);
+        return ResponseEntity
+                .status(HttpStatus.FOUND)
+                .body(
+                        storeRepository
+                                .findAllByIsActive(true, PageRequest.of(pageNo - 1, pageSize))
+                                .stream()
+                                .map(entity -> storeMapper.toResponse(entity))
+                                .collect(Collectors.toUnmodifiableList())
+                );
     }
 
     // GET_BY_ID
-    @GetMapping(GET_BY_ID)
-    public ResponseEntity<StoreResponse> findStoreById(@RequestParam("storeId") Long id) {
+    @Transactional
+    @GetMapping(HttpEndpoints.STORE_FIND_BY_ID_TEXT)
+    public ResponseEntity<StoreResponse> findById(@PathVariable("storeId") @NotNull Long storeId) {
 
-        // START_SELECT_FLOW
-        final StoreResponse response = storeFlow.findByID(id);
-
-        // RETURN_SUCCESS
-        return ResponseEntity.status(HttpStatus.FOUND).body(response);
+        return storeRepository
+                .findById(storeId)
+                .map(entity -> storeMapper.toResponse(entity))
+                .map(response -> ResponseEntity.status(HttpStatus.FOUND).body(response))
+                .orElseThrow(() -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, HttpFailureMessages.STORE_NOT_FOUND.getDescription());
+                });
     }
 
 
     // SEARCH(KEYWORDS)
     @Transactional
-    @GetMapping(HttpEndpoints.PRODUCTS_SEARCH_TEXT)
+    @GetMapping(HttpEndpoints.STORE_SEARCH_TEXT)
     public ResponseEntity<List<StoreResponse>> search(
             @PathVariable("keyword") @NotNull String keyword,
             @RequestParam(
@@ -156,25 +188,14 @@ public class StoreController {
                 );
     }
 
-    @GetMapping(GET_EXISTS_BY_ID)
-    public ResponseEntity existsById(@RequestParam("storeId") Long storeId) {
+    // EXISTS_BY_ID
+    @Transactional
+    @GetMapping(HttpEndpoints.STORE_FIND_EXISTS_BY_ID_TEXT)
+    public ResponseEntity<String> existsById(@PathVariable("storeId") @NotNull Long storeId) {
 
-        final var response = new Object() {
-            public boolean exists = false;
-        };
-
-        // START_SELECT_FLOW
-        try {
-            response.exists = storeFlow.existsById(storeId);
-        } catch (NullPointerException | ResourceNotFoundException | JsonProcessingException exception) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-        }
-
-        final var body = (response.exists == Boolean.TRUE) ? HttpSuccessMessages.STORE_EXISTS.getDescription()
-                : HttpFailureMessages.STORE_DOES_NOT_EXIST.getDescription();
-
-        // RETURN_SUCCESS
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(body);
+        return storeRepository.existsById(storeId)
+                ? ResponseEntity.status(HttpStatus.FOUND).body(HttpSuccessMessages.STORE_EXISTS.getDescription())
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(HttpFailureMessages.STORE_DOES_NOT_EXIST.getDescription());
     }
 
     // EXISTS_BY_UNIQUE_FIELDS
