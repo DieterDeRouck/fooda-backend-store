@@ -89,7 +89,7 @@ public class StoreController {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, HttpFailureMessages.STORE_NOT_FOUND.getDescription());
                 });
     }
-
+ 
     // DELETE_BY_ID
     @Transactional
     @DeleteMapping(HttpEndpoints.STORE_DELETE_BY_ID)
