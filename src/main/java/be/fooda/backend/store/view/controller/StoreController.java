@@ -31,44 +31,30 @@ public class StoreController {
     private static final int PAGE_SIZE_PER_RESULT = 25;
     private static final int DEFAULT_PAGE_NO = 0;
 
-    private static final String PAGE_NUMBER = "pageNo";
-    private static final Integer PAGE_NUMBER_DEFAULT_VALUE = 1;
-    private static final String PAGE_SIZE = "pageSize";
-    private static final Integer PAGE_SIZE_DEFAULT_VALUE = 50;
-
-    private static final String GET_ALL = "get/all";
-    private static final String GET_SEARCH = "search";
-    private static final String GET_FILTER = "filter";
-    private static final String POST_SINGLE = "add/one";
-    private static final String POST_ALL = "add/all";
-    private static final String GET_BY_ID = "get/one";
-    private static final String GET_EXISTS_BY_ID = "exists/one";
-    private static final String PUT_SINGLE = "edit/one";
-    private static final String PUT_ALL = "edit/all";
-    private static final String DELETE_BY_ID = "delete/one";
-    private static final String DELETE_BY_ID_PERMANENTLY = "delete/one/permanent";
-
     // INJECT_FLOW_BEAN
     private final StoreRepository storeRepository;
     private final StoreMapper storeMapper;
     private final StoreIndexer storeIndexer;
+
 
     // CREATE_NEW_STORE
     @Transactional
     @PostMapping(HttpEndpoints.STORE_POST_SINGLE_TEXT)
     public ResponseEntity<String> create(@RequestBody @Valid @NotNull CreateStoreRequest request) {
 
-        // FLOW_AND_RETURN
-        return storeRepository
-                .findByTitleAndAddressId(request.getTitle(), request.getAddressId())
-                .map(entity -> storeRepository.save(entity))
-                .map(entity -> ResponseEntity
-                        .status(HttpStatus.ACCEPTED)
-                        .header("saved_id", String.valueOf(entity.getId()))
-                        .body(HttpSuccessMessages.STORE_UPDATED.getDescription()))
-                .orElseThrow(() -> {
-                    throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, HttpFailureMessages.STORE_ALREADY_EXIST.getDescription());
-                });
+        
+        final var existsByUniqueFields = storeRepository.existsByTitleAndAddressId(request.getTitle(), request.getAddressId());
+
+        if(existsByUniqueFields){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, HttpFailureMessages.STORE_ALREADY_EXIST.getDescription());
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .header("saved_id", String.valueOf(
+                        storeRepository.save(storeMapper.toEntity(request)).getId())
+                )
+                .body(HttpSuccessMessages.STORE_CREATED.getDescription());
     }
 
     // UPDATE_SINGLE_STORE
