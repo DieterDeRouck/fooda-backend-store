@@ -30,6 +30,6 @@ spring:
   application:
     name: fooda-backend-store
 
-  jackson:
-    serialization.indent_output: true
-    default-property-inclusion: non_null
+logging:
+  level:
+    org.zalando.logbook: TRACE

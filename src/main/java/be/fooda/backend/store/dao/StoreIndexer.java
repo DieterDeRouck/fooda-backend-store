@@ -7,11 +7,13 @@ import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@Component
 public class StoreIndexer {
 
     @PersistenceContext

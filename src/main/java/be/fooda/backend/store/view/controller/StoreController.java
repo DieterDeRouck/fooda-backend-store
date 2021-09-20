@@ -49,9 +49,9 @@ public class StoreController {
     private static final String DELETE_BY_ID_PERMANENTLY = "delete/one/permanent";
 
     // INJECT_FLOW_BEAN
-    StoreRepository storeRepository;
-    StoreMapper storeMapper;
-    StoreIndexer storeIndexer;
+    private final StoreRepository storeRepository;
+    private final StoreMapper storeMapper;
+    private final StoreIndexer storeIndexer;
 
     // CREATE_NEW_STORE
     @Transactional
